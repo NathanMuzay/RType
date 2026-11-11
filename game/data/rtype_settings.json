@@ -1,0 +1,10 @@
+{
+  "controls": {"up": "Up", "down": "Down", "left": "Left", "right": "Right", "fire": "Space", "action": "LShift"},
+  "toggleFire": false,
+  "showPlayerLabels": true,
+  "musicVolume": 100,
+  "soundVolume": 45,
+  "textScale": 1.0,
+  "serverAddress": "127.0.0.1",
+  "gamepad": {"fire": 0, "action": 1, "deadzone": 35}
+}

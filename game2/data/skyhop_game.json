@@ -1,0 +1,1194 @@
+{
+  "world": {
+    "width": 1920,
+    "height": 1080
+  },
+  "window": {
+    "width": 1280,
+    "height": 720,
+    "title": "Skyhop"
+  },
+  "tickRate": 60,
+  "network": {
+    "defaultPort": 4242,
+    "maxPlayers": 4,
+    "maxEntities": 130,
+    "snapshotEveryTicks": 3,
+    "inputIntervalMs": 33,
+    "inputReleaseDelayMs": 500,
+    "heartbeatIntervalMs": 1000,
+    "connectRetryIntervalMs": 1000,
+    "connectAttempts": 5,
+    "sessionTimeoutMs": 5000,
+    "maxClients": 16,
+    "maxRooms": 16,
+    "roomNameMaxLength": 16,
+    "roomCodeMaxLength": 8,
+    "maxJoinAttempts": 5,
+    "chatMaxLength": 64,
+    "chatIntervalMs": 500,
+    "playerNameMaxLength": 12
+  },
+  "files": {
+    "serverPrefabs": "skyhop_server_prefabs.json",
+    "clientPrefabs": "skyhop_client_prefabs.json",
+    "settings": "skyhop_settings.json",
+    "scripts": "../scripts/skyhop"
+  },
+  "plugins": [
+    "wobble"
+  ],
+  "layers": [
+    "player",
+    "obstacle",
+    "gate"
+  ],
+  "worldValues": [
+    {
+      "name": "phase",
+      "labels": [
+        "ready",
+        "flying",
+        "over"
+      ]
+    },
+    {
+      "name": "score"
+    },
+    {
+      "name": "best"
+    },
+    {
+      "name": "restart"
+    }
+  ],
+  "playerValues": [],
+  "rules": [],
+  "eventSounds": [
+    "flap",
+    "score",
+    "crash"
+  ],
+  "playerPrefab": "player",
+  "serverScene": [
+    {
+      "prefab": "match"
+    },
+    {
+      "prefab": "director"
+    }
+  ],
+  "serverSystems": [
+    "Movement",
+    "Collision",
+    "Damage",
+    "Script",
+    "Offscreen",
+    "Match",
+    "Respawn"
+  ],
+  "textures": {
+    "plane": "skyhop/sprites/plane.png",
+    "background": "skyhop/sprites/background.png",
+    "ground": "skyhop/sprites/groundGrass.png",
+    "rock": "skyhop/sprites/rockGrass.png",
+    "rockDown": "skyhop/sprites/rockGrassDown.png",
+    "puff": "skyhop/sprites/puffLarge.png",
+    "getReady": "skyhop/sprites/textGetReady.png",
+    "gameOver": "skyhop/sprites/textGameOver.png"
+  },
+  "fonts": {
+    "hud": "skyhop/fonts/hud.ttf"
+  },
+  "sounds": {
+    "flap": "skyhop/sounds/flap.ogg",
+    "score": "skyhop/sounds/score.ogg",
+    "crash": "skyhop/sounds/crash.ogg",
+    "hover": "skyhop/sounds/hover.ogg",
+    "click": "skyhop/sounds/click.ogg"
+  },
+  "music": {
+    "main": "skyhop/music/main.wav",
+    "title": "skyhop/music/title.wav"
+  },
+  "kinds": {
+    "1": "plane",
+    "2": "rock",
+    "3": "rock_down"
+  },
+  "startScene": "menu",
+  "preload": [
+    "plane",
+    "background",
+    "ground",
+    "rock",
+    "rockDown",
+    "puff",
+    "getReady",
+    "gameOver",
+    "flap",
+    "score",
+    "crash",
+    "hover",
+    "click"
+  ],
+  "scenes": {
+    "menu": {
+      "music": "title",
+      "escapeAction": "quit",
+      "systems": [
+        "Parallax",
+        "Pointer",
+        "FocusNavigation",
+        "ButtonStyle",
+        "SpriteAnimation",
+        {
+          "system": "Wobble",
+          "texture": "plane",
+          "amplitude": 12,
+          "speed": 12
+        },
+        "Audio",
+        "Cleanup"
+      ],
+      "entities": [
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 0,
+              "y": 0
+            },
+            "Sprite": {
+              "texture": "background",
+              "frame": [
+                0,
+                0,
+                800,
+                480
+              ],
+              "scale": 2.4
+            },
+            "RectShape": {
+              "width": 1920.0,
+              "height": 1,
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            "Parallax": {
+              "speed": 40,
+              "wrapWidth": 1920.0
+            }
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 1920.0,
+              "y": 0
+            },
+            "Sprite": {
+              "texture": "background",
+              "frame": [
+                0,
+                0,
+                800,
+                480
+              ],
+              "scale": 2.4
+            },
+            "RectShape": {
+              "width": 1920.0,
+              "height": 1,
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            "Parallax": {
+              "speed": 40,
+              "wrapWidth": 1920.0
+            }
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 0,
+              "y": 909.6
+            },
+            "Sprite": {
+              "texture": "ground",
+              "frame": [
+                0,
+                0,
+                808,
+                71
+              ],
+              "scale": 2.4
+            },
+            "RectShape": {
+              "width": 1939.1999999999998,
+              "height": 1,
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            "Parallax": {
+              "speed": 120,
+              "wrapWidth": 1939.1999999999998
+            }
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 1939.1999999999998,
+              "y": 909.6
+            },
+            "Sprite": {
+              "texture": "ground",
+              "frame": [
+                0,
+                0,
+                808,
+                71
+              ],
+              "scale": 2.4
+            },
+            "RectShape": {
+              "width": 1939.1999999999998,
+              "height": 1,
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            "Parallax": {
+              "speed": 120,
+              "wrapWidth": 1939.1999999999998
+            }
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 773.0,
+              "y": 178
+            },
+            "Text": {
+              "font": "hud",
+              "size": 150,
+              "color": [
+                40,
+                30,
+                60,
+                255
+              ],
+              "content": "SKYHOP"
+            }
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 765.0,
+              "y": 170
+            },
+            "Text": {
+              "font": "hud",
+              "size": 150,
+              "color": [
+                255,
+                196,
+                60,
+                255
+              ],
+              "content": "SKYHOP"
+            }
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 905,
+              "y": 360
+            },
+            "Sprite": {
+              "texture": "plane",
+              "frame": [
+                0,
+                0,
+                88,
+                73
+              ],
+              "scale": 1.4
+            },
+            "SpriteAnimation": {
+              "frame": [
+                0,
+                0,
+                88,
+                73
+              ],
+              "frameCount": 3,
+              "stepX": 88,
+              "framesPerSecond": 12,
+              "loop": true
+            }
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 750,
+              "y": 520
+            },
+            "RectShape": {
+              "width": 420,
+              "height": 100,
+              "color": [
+                232,
+                151,
+                52,
+                255
+              ]
+            },
+            "Text": {
+              "font": "hud",
+              "size": 52,
+              "color": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "content": "JOUER",
+              "offsetX": 152.5,
+              "offsetY": 22
+            },
+            "Button": {
+              "action": "play",
+              "width": 420,
+              "height": 100,
+              "normal": [
+                232,
+                151,
+                52,
+                255
+              ],
+              "hover": [
+                250,
+                190,
+                70,
+                255
+              ],
+              "pressed": [
+                190,
+                110,
+                30,
+                255
+              ],
+              "clickSound": "click"
+            },
+            "Focusable": {
+              "order": 0
+            }
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 750,
+              "y": 660
+            },
+            "RectShape": {
+              "width": 420,
+              "height": 100,
+              "color": [
+                232,
+                151,
+                52,
+                255
+              ]
+            },
+            "Text": {
+              "font": "hud",
+              "size": 52,
+              "color": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "content": "QUITTER",
+              "offsetX": 133.0,
+              "offsetY": 22
+            },
+            "Button": {
+              "action": "quit",
+              "width": 420,
+              "height": 100,
+              "normal": [
+                232,
+                151,
+                52,
+                255
+              ],
+              "hover": [
+                250,
+                190,
+                70,
+                255
+              ],
+              "pressed": [
+                190,
+                110,
+                30,
+                255
+              ],
+              "clickSound": "click"
+            },
+            "Focusable": {
+              "order": 1
+            }
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 839.5,
+              "y": 863
+            },
+            "Text": {
+              "font": "hud",
+              "size": 34,
+              "color": [
+                40,
+                30,
+                60,
+                255
+              ],
+              "content": "ESPACE POUR VOLER"
+            }
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 836.5,
+              "y": 860
+            },
+            "Text": {
+              "font": "hud",
+              "size": 34,
+              "color": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "content": "ESPACE POUR VOLER"
+            }
+          }
+        }
+      ]
+    },
+    "game": {
+      "music": "main",
+      "escapeAction": "pause",
+      "systems": [
+        "Parallax",
+        "SpriteAnimation",
+        "DeathEffect",
+        "Pointer",
+        "FocusNavigation",
+        "ButtonStyle",
+        "BoundText",
+        "Visibility",
+        "Movement",
+        "Particles",
+        "Lifetime",
+        "Audio",
+        "Cleanup"
+      ],
+      "entities": [
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 0,
+              "y": 0
+            },
+            "Sprite": {
+              "texture": "background",
+              "frame": [
+                0,
+                0,
+                800,
+                480
+              ],
+              "scale": 2.4
+            },
+            "RectShape": {
+              "width": 1920.0,
+              "height": 1,
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            "Parallax": {
+              "speed": 40,
+              "wrapWidth": 1920.0
+            }
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 1920.0,
+              "y": 0
+            },
+            "Sprite": {
+              "texture": "background",
+              "frame": [
+                0,
+                0,
+                800,
+                480
+              ],
+              "scale": 2.4
+            },
+            "RectShape": {
+              "width": 1920.0,
+              "height": 1,
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            "Parallax": {
+              "speed": 40,
+              "wrapWidth": 1920.0
+            }
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 0,
+              "y": 909.6
+            },
+            "Sprite": {
+              "texture": "ground",
+              "frame": [
+                0,
+                0,
+                808,
+                71
+              ],
+              "scale": 2.4
+            },
+            "RectShape": {
+              "width": 1939.1999999999998,
+              "height": 1,
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            "Parallax": {
+              "speed": 380,
+              "wrapWidth": 1939.1999999999998
+            },
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 1939.1999999999998,
+              "y": 909.6
+            },
+            "Sprite": {
+              "texture": "ground",
+              "frame": [
+                0,
+                0,
+                808,
+                71
+              ],
+              "scale": 2.4
+            },
+            "RectShape": {
+              "width": 1939.1999999999998,
+              "height": 1,
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            "Parallax": {
+              "speed": 380,
+              "wrapWidth": 1939.1999999999998
+            },
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 918.0,
+              "y": 46
+            },
+            "Text": {
+              "font": "hud",
+              "size": 110,
+              "color": [
+                40,
+                30,
+                60,
+                255
+              ],
+              "content": ""
+            },
+            "BoundText": {
+              "format": "{world.score}"
+            },
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 912.0,
+              "y": 40
+            },
+            "Text": {
+              "font": "hud",
+              "size": 110,
+              "color": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "content": ""
+            },
+            "BoundText": {
+              "format": "{world.score}"
+            },
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 560,
+              "y": 300
+            },
+            "Sprite": {
+              "texture": "getReady",
+              "frame": [
+                0,
+                0,
+                400,
+                73
+              ],
+              "scale": 2.0
+            },
+            "VisibleWhen": {
+              "key": "world.phase",
+              "value": "ready",
+              "unless": {
+                "key": "pause.visible",
+                "value": "yes"
+              }
+            },
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 817.5,
+              "y": 523
+            },
+            "Text": {
+              "font": "hud",
+              "size": 40,
+              "color": [
+                40,
+                30,
+                60,
+                255
+              ],
+              "content": "APPUIE SUR ESPACE"
+            },
+            "VisibleWhen": {
+              "key": "world.phase",
+              "value": "ready",
+              "unless": {
+                "key": "pause.visible",
+                "value": "yes"
+              }
+            },
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 814.5,
+              "y": 520
+            },
+            "Text": {
+              "font": "hud",
+              "size": 40,
+              "color": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "content": "APPUIE SUR ESPACE"
+            },
+            "VisibleWhen": {
+              "key": "world.phase",
+              "value": "ready",
+              "unless": {
+                "key": "pause.visible",
+                "value": "yes"
+              }
+            },
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 548,
+              "y": 230
+            },
+            "Sprite": {
+              "texture": "gameOver",
+              "frame": [
+                0,
+                0,
+                412,
+                78
+              ],
+              "scale": 2.0
+            },
+            "VisibleWhen": {
+              "key": "world.phase",
+              "value": "over",
+              "unless": {
+                "key": "pause.visible",
+                "value": "yes"
+              }
+            },
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 804.0,
+              "y": 453
+            },
+            "Text": {
+              "font": "hud",
+              "size": 44,
+              "color": [
+                40,
+                30,
+                60,
+                255
+              ],
+              "content": ""
+            },
+            "BoundText": {
+              "format": "SCORE {world.score}   BEST {world.best}"
+            },
+            "VisibleWhen": {
+              "key": "world.phase",
+              "value": "over",
+              "unless": {
+                "key": "pause.visible",
+                "value": "yes"
+              }
+            },
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 801.0,
+              "y": 450
+            },
+            "Text": {
+              "font": "hud",
+              "size": 44,
+              "color": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "content": ""
+            },
+            "BoundText": {
+              "format": "SCORE {world.score}   BEST {world.best}"
+            },
+            "VisibleWhen": {
+              "key": "world.phase",
+              "value": "over",
+              "unless": {
+                "key": "pause.visible",
+                "value": "yes"
+              }
+            },
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 677.0,
+              "y": 543
+            },
+            "Text": {
+              "font": "hud",
+              "size": 34,
+              "color": [
+                40,
+                30,
+                60,
+                255
+              ],
+              "content": "ESPACE POUR REJOUER   ECHAP POUR LE MENU"
+            },
+            "VisibleWhen": {
+              "key": "world.phase",
+              "value": "over",
+              "unless": {
+                "key": "pause.visible",
+                "value": "yes"
+              }
+            },
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 674.0,
+              "y": 540
+            },
+            "Text": {
+              "font": "hud",
+              "size": 34,
+              "color": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "content": "ESPACE POUR REJOUER   ECHAP POUR LE MENU"
+            },
+            "VisibleWhen": {
+              "key": "world.phase",
+              "value": "over",
+              "unless": {
+                "key": "pause.visible",
+                "value": "yes"
+              }
+            },
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 0,
+              "y": 0
+            },
+            "RectShape": {
+              "width": 1920,
+              "height": 1080,
+              "color": [
+                0,
+                0,
+                0,
+                150
+              ]
+            },
+            "Foreground": {},
+            "VisibleWhen": {
+              "key": "pause.visible",
+              "value": "yes"
+            }
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 865.0,
+              "y": 305
+            },
+            "Text": {
+              "font": "hud",
+              "size": 90,
+              "color": [
+                40,
+                30,
+                60,
+                255
+              ],
+              "content": "PAUSE"
+            },
+            "Foreground": {},
+            "VisibleWhen": {
+              "key": "pause.visible",
+              "value": "yes"
+            }
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 860.0,
+              "y": 300
+            },
+            "Text": {
+              "font": "hud",
+              "size": 90,
+              "color": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "content": "PAUSE"
+            },
+            "Foreground": {},
+            "VisibleWhen": {
+              "key": "pause.visible",
+              "value": "yes"
+            }
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 750,
+              "y": 460
+            },
+            "RectShape": {
+              "width": 420,
+              "height": 100,
+              "color": [
+                232,
+                151,
+                52,
+                255
+              ]
+            },
+            "Text": {
+              "font": "hud",
+              "size": 52,
+              "color": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "content": "REPRENDRE",
+              "offsetX": 106.5,
+              "offsetY": 22
+            },
+            "Button": {
+              "action": "resume",
+              "width": 420,
+              "height": 100,
+              "normal": [
+                232,
+                151,
+                52,
+                255
+              ],
+              "hover": [
+                250,
+                190,
+                70,
+                255
+              ],
+              "pressed": [
+                190,
+                110,
+                30,
+                255
+              ],
+              "clickSound": "click"
+            },
+            "Focusable": {
+              "order": 0
+            },
+            "Foreground": {},
+            "VisibleWhen": {
+              "key": "pause.visible",
+              "value": "yes"
+            }
+          }
+        },
+        {
+          "prefab": "ui",
+          "components": {
+            "Transform": {
+              "x": 750,
+              "y": 600
+            },
+            "RectShape": {
+              "width": 420,
+              "height": 100,
+              "color": [
+                232,
+                151,
+                52,
+                255
+              ]
+            },
+            "Text": {
+              "font": "hud",
+              "size": 52,
+              "color": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "content": "MENU",
+              "offsetX": 161.0,
+              "offsetY": 22
+            },
+            "Button": {
+              "action": "scene:menu",
+              "width": 420,
+              "height": 100,
+              "normal": [
+                232,
+                151,
+                52,
+                255
+              ],
+              "hover": [
+                250,
+                190,
+                70,
+                255
+              ],
+              "pressed": [
+                190,
+                110,
+                30,
+                255
+              ],
+              "clickSound": "click"
+            },
+            "Focusable": {
+              "order": 1
+            },
+            "Foreground": {},
+            "VisibleWhen": {
+              "key": "pause.visible",
+              "value": "yes"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "uiMessages": {
+    "online": "ONLINE",
+    "connecting": "CONNECTING...",
+    "connectionFailed": "SERVER UNREACHABLE OR CONNECTION LOST",
+    "invalidAddress": "INVALID SERVER ADDRESS",
+    "roomLost": "THE ROOM STOPPED ANSWERING",
+    "kicked": "YOU WERE KICKED FROM THE ROOM",
+    "roomClosed": "THE ROOM WAS CLOSED",
+    "roomNotFound": "THIS ROOM DOES NOT EXIST ANYMORE",
+    "roomFull": "THIS ROOM IS FULL",
+    "wrongCode": "WRONG CODE",
+    "tooManyRooms": "THE SERVER HAS TOO MANY ROOMS",
+    "invalidRoomName": "ENTER A ROOM NAME",
+    "tooManyAttempts": "TOO MANY WRONG CODES",
+    "notAllowed": "ONLY THE ROOM OWNER CAN DO THAT",
+    "locked": "[LOCKED]",
+    "playing": "IN GAME",
+    "waiting": "WAITING",
+    "noRooms": "NO ROOM YET, CREATE ONE",
+    "ownerTag": "  [OWNER]",
+    "youTag": "  (YOU)",
+    "emptySlot": "- FREE -"
+  },
+  "renderSystems": [
+    {
+      "system": "Render",
+      "background": [
+        120,
+        190,
+        230,
+        255
+      ]
+    }
+  ]
+}

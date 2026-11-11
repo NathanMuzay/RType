@@ -1,0 +1,568 @@
+{
+  "match": {"Match": {"restartDelay": 5.0}},
+  "player": {
+    "Lives": {"count": 999},
+    "Score": {},
+    "Respawn": {"prefab": "player_ship", "delay": 2.0, "invulnerability": 2.0, "x": 200, "y": 200, "spacingY": 160}
+  },
+  "player_ship": {
+    "Transform": {},
+    "Velocity": {},
+    "Collider": {"width": 99, "height": 51, "layer": "player"},
+    "Bounded": {"minX": 0, "minY": 0, "maxX": 1920, "maxY": 1080},
+    "Health": {"points": 100},
+    "PlayerControl": {"speed": 600},
+    "Weapon": {"prefab": "player_missile", "cooldown": 0.2, "offsetX": 99, "offsetY": 19.5, "count": 1, "spread": 0},
+    "Replicated": {"kind": 1},
+    "Pushable": {},
+    "Script": {"file": "player.py"}
+  },
+  "player_missile": {
+    "Transform": {},
+    "Velocity": {"x": 1500, "y": 0},
+    "Collider": {"width": 48, "height": 12, "layer": "player_missile", "hits": ["enemy"]},
+    "ContactDamage": {"amount": 1, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": 0, "minY": 0, "maxX": 1920, "maxY": 1080},
+    "Replicated": {"kind": 2}
+  },
+  "pvp_missile": {
+    "Transform": {},
+    "Velocity": {"x": 1500, "y": 0},
+    "Collider": {"width": 48, "height": 12, "layer": "player_missile", "hits": ["player"]},
+    "ContactDamage": {"amount": 10, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": 0, "minY": 0, "maxX": 1920, "maxY": 1080},
+    "Replicated": {"kind": 2}
+  },
+  "pvp_missile_left": {
+    "Transform": {},
+    "Velocity": {"x": -1500, "y": 0},
+    "Rotation": {"degrees": 180},
+    "Collider": {"width": 48, "height": 12, "layer": "player_missile", "hits": ["player"]},
+    "ContactDamage": {"amount": 10, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": 0, "minY": 0, "maxX": 1920, "maxY": 1080},
+    "Replicated": {"kind": 2}
+  },
+  "pvp_charged": {
+    "Transform": {},
+    "Velocity": {"x": 1300, "y": 0},
+    "Collider": {"width": 160, "height": 32, "layer": "player_missile", "hits": ["player"]},
+    "ContactDamage": {"amount": 35, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": -300, "minY": -100, "maxX": 2200, "maxY": 1180},
+    "Replicated": {"kind": 28}
+  },
+  "pvp_charged_left": {
+    "Transform": {},
+    "Velocity": {"x": -1300, "y": 0},
+    "Rotation": {"degrees": 180},
+    "Collider": {"width": 160, "height": 32, "layer": "player_missile", "hits": ["player"]},
+    "ContactDamage": {"amount": 35, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": -300, "minY": -100, "maxX": 2200, "maxY": 1180},
+    "Replicated": {"kind": 28}
+  },
+  "director": {"Script": {"file": "campaign.py", "params": {"bossRush": 0}}},
+  "enemy_missile": {
+    "Transform": {},
+    "Velocity": {"x": -600, "y": 0},
+    "Collider": {"width": 27, "height": 24, "layer": "enemy_missile", "hits": ["player"]},
+    "ContactDamage": {"amount": 15, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 4},
+    "Health": {"points": 1}
+  },
+  "enemy_bullet": {
+    "Transform": {},
+    "Velocity": {"x": -600, "y": 0},
+    "Collider": {"width": 21, "height": 18, "layer": "enemy_missile", "hits": ["player"]},
+    "ContactDamage": {"amount": 12, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 17},
+    "Health": {"points": 1}
+  },
+  "boss_missile": {
+    "Transform": {},
+    "Velocity": {"x": -600, "y": 0},
+    "Collider": {"width": 64, "height": 56, "layer": "enemy_missile", "hits": ["player"]},
+    "ContactDamage": {"amount": 25, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 11},
+    "Health": {"points": 1}
+  },
+  "boss_orb": {
+    "Transform": {},
+    "Velocity": {"x": -600, "y": 0},
+    "Collider": {"width": 33, "height": 27, "layer": "enemy_missile", "hits": ["player"]},
+    "ContactDamage": {"amount": 20, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 18},
+    "Health": {"points": 1}
+  },
+  "boss_laser": {
+    "Transform": {},
+    "Velocity": {"x": -600, "y": 0},
+    "Collider": {"width": 96, "height": 8, "layer": "enemy_missile", "hits": ["player"]},
+    "ContactDamage": {"amount": 15, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 19},
+    "Health": {"points": 1}
+  },
+  "bydo_straight": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 66, "height": 72, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 1},
+    "ContactDamage": {"amount": 25, "destroyOnHit": true},
+    "ScoreValue": {"points": 100},
+    "Script": {"file": "bydo.py", "params": {"pattern": "straight"}},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 3}
+  },
+  "bydo_sine": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 66, "height": 72, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 1},
+    "ContactDamage": {"amount": 25, "destroyOnHit": true},
+    "ScoreValue": {"points": 100},
+    "Script": {"file": "bydo.py", "params": {"pattern": "sine", "amplitude": 150, "frequency": 3}},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 3}
+  },
+  "bydo_zigzag": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 66, "height": 72, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 1},
+    "ContactDamage": {"amount": 25, "destroyOnHit": true},
+    "ScoreValue": {"points": 100},
+    "Script": {"file": "bydo.py", "params": {"pattern": "zigzag", "vertical": 250, "shoots": 0}},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 3}
+  },
+  "pod": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 80, "height": 55, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 1},
+    "ContactDamage": {"amount": 25, "destroyOnHit": true},
+    "ScoreValue": {"points": 100},
+    "Script": {"file": "pod.py", "params": {"speed": 480}},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 6}
+  },
+  "hopper": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 75, "height": 65, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 2},
+    "ContactDamage": {"amount": 25, "destroyOnHit": true},
+    "ScoreValue": {"points": 150},
+    "Script": {"file": "hopper.py"},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 5}
+  },
+  "heavy": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 126, "height": 96, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 6},
+    "ContactDamage": {"amount": 40, "destroyOnHit": true},
+    "ScoreValue": {"points": 400},
+    "Script": {"file": "heavy.py"},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 7}
+  },
+  "chaser": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 80, "height": 72, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 2},
+    "ContactDamage": {"amount": 30, "destroyOnHit": true},
+    "ScoreValue": {"points": 200},
+    "Script": {"file": "chaser.py"},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 12}
+  },
+  "turret": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 80, "height": 72, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 4},
+    "ContactDamage": {"amount": 30, "destroyOnHit": true},
+    "ScoreValue": {"points": 300},
+    "Script": {"file": "turret.py", "params": {"stop_x": 1500, "stay": 8}},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 13}
+  },
+  "splitter": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 96, "height": 96, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 3},
+    "ContactDamage": {"amount": 30, "destroyOnHit": true},
+    "ScoreValue": {"points": 250},
+    "Script": {"file": "splitter.py"},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 14}
+  },
+  "splitter_small": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 48, "height": 42, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 1},
+    "ContactDamage": {"amount": 20, "destroyOnHit": true},
+    "ScoreValue": {"points": 50},
+    "Script": {"file": "splitter_small.py"},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 15}
+  },
+  "mine": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 75, "height": 80, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 2},
+    "ContactDamage": {"amount": 35, "destroyOnHit": true},
+    "ScoreValue": {"points": 150},
+    "Script": {"file": "mine.py"},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 16}
+  },
+  "boss_dobkeratops": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 388, "height": 510, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 350},
+    "ContactDamage": {"amount": 40, "destroyOnHit": false},
+    "ScoreValue": {"points": 5000},
+    "Script": {"file": "dobkeratops.py", "params": {"stop_x": 1400}},
+    "Replicated": {"kind": 8}
+  },
+  "boss_warship": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 528, "height": 432, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 500},
+    "ContactDamage": {"amount": 40, "destroyOnHit": false},
+    "ScoreValue": {"points": 5000},
+    "Script": {"file": "warship.py", "params": {"stop_x": 1300}},
+    "Replicated": {"kind": 9}
+  },
+  "boss_beam": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 256, "height": 200, "layer": "enemy_missile", "hits": ["player"]},
+    "ContactDamage": {"amount": 35, "destroyOnHit": false},
+    "Replicated": {"kind": 20},
+    "Lifetime": {"seconds": 1.5}
+  },
+  "warning": {"Transform": {}, "Lifetime": {"seconds": 0.7}, "Replicated": {"kind": 21}},
+  "charge_warning": {"Transform": {}, "Lifetime": {"seconds": 2.43}, "Replicated": {"kind": 21}},
+  "player_missile_ff": {
+    "Transform": {},
+    "Velocity": {"x": 1500, "y": 0},
+    "Collider": {"width": 48, "height": 12, "layer": "player_missile", "hits": ["enemy", "player"]},
+    "ContactDamage": {"amount": 1, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": 0, "minY": 0, "maxX": 1920, "maxY": 1080},
+    "Replicated": {"kind": 2}
+  },
+  "player_missile_back": {
+    "Transform": {},
+    "Velocity": {"x": -1500, "y": 0},
+    "Rotation": {"degrees": 180},
+    "Collider": {"width": 48, "height": 12, "layer": "player_missile", "hits": ["enemy"]},
+    "ContactDamage": {"amount": 1, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": 0, "minY": 0, "maxX": 1920, "maxY": 1080},
+    "Replicated": {"kind": 2}
+  },
+  "player_missile_back_ff": {
+    "Transform": {},
+    "Velocity": {"x": -1500, "y": 0},
+    "Rotation": {"degrees": 180},
+    "Collider": {"width": 48, "height": 12, "layer": "player_missile", "hits": ["enemy", "player"]},
+    "ContactDamage": {"amount": 1, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": 0, "minY": 0, "maxX": 1920, "maxY": 1080},
+    "Replicated": {"kind": 2}
+  },
+  "player_missile_charged": {
+    "Transform": {},
+    "Velocity": {"x": 1300, "y": 0},
+    "Collider": {"width": 160, "height": 32, "layer": "player_missile", "hits": ["enemy"]},
+    "ContactDamage": {"amount": 12, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": -300, "minY": -100, "maxX": 2200, "maxY": 1180},
+    "Replicated": {"kind": 28}
+  },
+  "powerup_double": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 48, "height": 48, "layer": "pickup", "hits": ["player"]},
+    "Script": {"file": "powerup.py", "params": {"effect": "double"}},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 22}
+  },
+  "powerup_spread": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 48, "height": 48, "layer": "pickup", "hits": ["player"]},
+    "Script": {"file": "powerup.py", "params": {"effect": "spread"}},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 23}
+  },
+  "powerup_heal": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 48, "height": 48, "layer": "pickup", "hits": ["player"]},
+    "Script": {"file": "powerup.py", "params": {"effect": "heal"}},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 24}
+  },
+  "powerup_shield": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 48, "height": 48, "layer": "pickup", "hits": ["player"]},
+    "Script": {"file": "powerup.py", "params": {"effect": "shield"}},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 25}
+  },
+  "powerup_force": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 48, "height": 48, "layer": "pickup", "hits": ["player"]},
+    "Script": {"file": "powerup.py", "params": {"effect": "force"}},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 26}
+  },
+  "powerup_drone": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 48, "height": 48, "layer": "pickup", "hits": ["player"]},
+    "Script": {"file": "powerup.py", "params": {"effect": "drone"}},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 36}
+  },
+  "drone": {"Transform": {}, "Velocity": {"x": 0, "y": 0}, "Script": {"file": "drone.py"}, "Replicated": {"kind": 35}},
+  "force": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 67, "height": 55, "layer": "force", "hits": ["enemy_missile"]},
+    "ContactDamage": {"amount": 1, "destroyOnHit": false},
+    "Script": {"file": "force.py"},
+    "Replicated": {"kind": 27}
+  },
+  "carrier": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 190, "height": 70, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 3},
+    "ContactDamage": {"amount": 25, "destroyOnHit": true},
+    "ScoreValue": {"points": 300},
+    "Script": {"file": "carrier.py"},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 29}
+  },
+  "snake_head": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 62, "height": 64, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 8},
+    "ContactDamage": {"amount": 30, "destroyOnHit": true},
+    "ScoreValue": {"points": 800},
+    "Script": {"file": "snake.py", "params": {"segments": 8}},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 30}
+  },
+  "snake_segment": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 46, "height": 64, "layer": "enemy", "hits": ["player"]},
+    "ContactDamage": {"amount": 20, "destroyOnHit": false},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 31}
+  },
+  "ground_turret": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 80, "height": 60, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 4},
+    "ContactDamage": {"amount": 30, "destroyOnHit": true},
+    "ScoreValue": {"points": 350},
+    "Script": {"file": "ground_turret.py"},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 32}
+  },
+  "ceiling_turret": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 80, "height": 60, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 4},
+    "ContactDamage": {"amount": 30, "destroyOnHit": true},
+    "ScoreValue": {"points": 350},
+    "Script": {"file": "ground_turret.py"},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 44},
+    "Rotation": {"degrees": 180}
+  },
+  "tile_wall": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 80, "height": 80, "layer": "terrain", "hits": ["player"]},
+    "Solid": {},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 33}
+  },
+  "tile_ceiling": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 80, "height": 80, "layer": "terrain", "hits": ["player"]},
+    "Solid": {},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 45}
+  },
+  "tile_pipe": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 80, "height": 80, "layer": "terrain", "hits": ["player"]},
+    "Solid": {},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 46}
+  },
+  "tile_break": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 80, "height": 80, "layer": "enemy", "hits": ["player"]},
+    "Solid": {},
+    "Health": {"points": 3},
+    "ScoreValue": {"points": 50},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 34}
+  },
+  "boss_vessel": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 920, "height": 250, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 450},
+    "ContactDamage": {"amount": 40, "destroyOnHit": false},
+    "ScoreValue": {"points": 8000},
+    "Script": {"file": "vessel.py", "params": {"bombProof": 1}},
+    "Replicated": {"kind": 10}
+  },
+  "vessel_beam": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 100, "height": 80, "layer": "enemy_missile", "hits": ["player"]},
+    "ContactDamage": {"amount": 30, "destroyOnHit": false},
+    "Lifetime": {"seconds": 1.5},
+    "Replicated": {"kind": 37}
+  },
+  "vessel_warn": {"Transform": {}, "Replicated": {"kind": 38}},
+  "spore": {
+    "Transform": {},
+    "Velocity": {"x": -380, "y": 0},
+    "Collider": {"width": 36, "height": 36, "layer": "enemy_missile", "hits": ["player"]},
+    "ContactDamage": {"amount": 15, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 39},
+    "Health": {"points": 1},
+    "Script": {"file": "spore.py"}
+  },
+  "spore_small": {
+    "Transform": {},
+    "Velocity": {"x": -600, "y": 0},
+    "Collider": {"width": 22, "height": 30, "layer": "enemy_missile", "hits": ["player"]},
+    "ContactDamage": {"amount": 10, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 40},
+    "Health": {"points": 1}
+  },
+  "laser_shot": {
+    "Transform": {},
+    "Velocity": {"x": -1100, "y": 0},
+    "Collider": {"width": 72, "height": 8, "layer": "enemy_missile", "hits": ["player"]},
+    "ContactDamage": {"amount": 10, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 41},
+    "Health": {"points": 1}
+  },
+  "homing_missile": {
+    "Transform": {},
+    "Velocity": {"x": -430, "y": 0},
+    "Collider": {"width": 40, "height": 34, "layer": "enemy_missile", "hits": ["player"]},
+    "ContactDamage": {"amount": 18, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 42},
+    "Health": {"points": 1},
+    "Script": {"file": "homing.py"}
+  },
+  "missile": {
+    "Transform": {},
+    "Velocity": {"x": -430, "y": 0},
+    "Collider": {"width": 40, "height": 34, "layer": "enemy_missile", "hits": ["player"]},
+    "ContactDamage": {"amount": 15, "destroyOnHit": true},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 43},
+    "Health": {"points": 1}
+  },
+  "terrain_stage2": {
+    "Transform": {},
+    "Tilemap": {
+      "rows": [
+        "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "#####=###=#==############=#####==#====#######==##==#==#==##############==#=#====####==###########=######=#####"
+      ],
+      "legend": {"c": "tile_ceiling", "#": "tile_wall", "=": "tile_pipe"},
+      "tileSize": 80,
+      "speed": 120
+    }
+  },
+  "laser_lock": {"Transform": {}, "Script": {"file": "laser_lock.py"}},
+  "grid_lock": {"Transform": {}, "Script": {"file": "laser_lock.py", "params": {"quiet": 1}}},
+  "grid_lock_vertical": {"Transform": {}, "Script": {"file": "laser_lock.py", "params": {"quiet": 1, "vertical": 1}}},
+  "vessel_warn_vertical": {"Transform": {}, "Replicated": {"kind": 50}},
+  "vessel_beam_vertical": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 80, "height": 100, "layer": "enemy_missile", "hits": ["player"]},
+    "ContactDamage": {"amount": 30, "destroyOnHit": false},
+    "Lifetime": {"seconds": 1.5},
+    "Replicated": {"kind": 51}
+  },
+  "meteor": {
+    "Transform": {},
+    "Velocity": {"x": -350, "y": 0},
+    "Collider": {"width": 90, "height": 78, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 3},
+    "ContactDamage": {"amount": 20, "destroyOnHit": true},
+    "ScoreValue": {"points": 100},
+    "Script": {"file": "meteor.py"},
+    "DespawnOffscreen": {"minX": -500, "minY": -400, "maxX": 2500, "maxY": 1480},
+    "Replicated": {"kind": 49}
+  },
+  "vessel_turret": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 96, "height": 72, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 5000},
+    "ContactDamage": {"amount": 20, "destroyOnHit": false},
+    "Script": {"file": "vessel_turret.py"},
+    "Replicated": {"kind": 47}
+  },
+  "vessel_turret_top": {
+    "Transform": {},
+    "Velocity": {"x": 0, "y": 0},
+    "Collider": {"width": 96, "height": 72, "layer": "enemy", "hits": ["player"]},
+    "Health": {"points": 5000},
+    "ContactDamage": {"amount": 20, "destroyOnHit": false},
+    "Script": {"file": "vessel_turret.py"},
+    "Replicated": {"kind": 48}
+  },
+  "boss_blast": {"Transform": {}, "Lifetime": {"seconds": 0.6}, "Replicated": {"kind": 52}}
+}

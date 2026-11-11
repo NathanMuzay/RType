@@ -1,0 +1,87 @@
+{
+  "ui": {
+    "Transform": {}
+  },
+  "plane": {
+    "Transform": {},
+    "Sprite": {
+      "texture": "plane",
+      "frame": [
+        0,
+        0,
+        88,
+        73
+      ],
+      "scale": 1.3
+    },
+    "SpriteAnimation": {
+      "frame": [
+        0,
+        0,
+        88,
+        73
+      ],
+      "frameCount": 3,
+      "stepX": 88,
+      "framesPerSecond": 14,
+      "loop": true
+    },
+    "DeathEffect": {
+      "prefab": "crash"
+    }
+  },
+  "rock": {
+    "Transform": {},
+    "Sprite": {
+      "texture": "rock",
+      "frame": [
+        0,
+        0,
+        108,
+        239
+      ],
+      "scale": 2.6
+    }
+  },
+  "rock_down": {
+    "Transform": {},
+    "Sprite": {
+      "texture": "rockDown",
+      "frame": [
+        0,
+        0,
+        108,
+        239
+      ],
+      "scale": 2.6
+    }
+  },
+  "crash": {
+    "Transform": {},
+    "Sprite": {
+      "texture": "puff",
+      "frame": [
+        0,
+        0,
+        42,
+        35
+      ],
+      "scale": 3
+    },
+    "Lifetime": {
+      "seconds": 0.5
+    },
+    "ParticleEmitter": {
+      "count": 16,
+      "speed": 280,
+      "lifetime": 0.5,
+      "size": 7,
+      "color": [
+        250,
+        240,
+        220,
+        255
+      ]
+    }
+  }
+}

@@ -1,0 +1,95 @@
+site_name: R-Type
+site_description: Developer documentation of the R-Type project and its game engine
+docs_dir: docs
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - Quick start: getting-started/quick-start.md
+      - Installation: getting-started/installation.md
+      - Building: getting-started/building.md
+      - Running: getting-started/running.md
+      - Playing on a network: getting-started/network-play.md
+      - Troubleshooting: getting-started/troubleshooting.md
+      - FAQ: getting-started/faq.md
+  - Architecture:
+      - Overview: architecture/overview.md
+      - Engine modules: architecture/engine-modules.md
+      - Entity Component System: architecture/ecs.md
+      - Data-driven games: architecture/data-driven.md
+      - Scripting: architecture/scripting.md
+      - Server: architecture/server.md
+      - Client: architecture/client.md
+      - Solo mode: architecture/solo-mode.md
+      - Networking: architecture/networking.md
+      - Threading: architecture/threading.md
+      - Rendering and audio: architecture/rendering.md
+      - Design decisions: architecture/decisions.md
+  - Create content:
+      - Create a game from scratch: guides/content/create-a-game.md
+      - Prefabs and scenes: guides/content/prefabs-and-scenes.md
+      - Add an enemy: guides/content/add-an-enemy.md
+      - Add a level or a boss: guides/content/add-a-level.md
+      - Tilemaps and terrain: guides/content/tilemaps.md
+      - UI and HUD: guides/content/ui-and-hud.md
+      - Values and rules: guides/content/values-and-rules.md
+      - Audio: guides/content/audio.md
+      - Console and cheats: guides/content/console.md
+      - Controls and gamepad: guides/content/controls.md
+      - Asset pipeline: guides/content/assets.md
+  - Extend the engine:
+      - Add a component: guides/engine/add-a-component.md
+      - Add a system: guides/engine/add-a-system.md
+      - Add a network message: guides/engine/add-a-network-message.md
+      - Write a plugin: guides/engine/write-a-plugin.md
+      - Replace a library or port: guides/engine/replace-a-library.md
+      - Debugging: guides/engine/debugging.md
+      - Testing: guides/engine/testing.md
+      - Performance: guides/engine/performance.md
+  - Reference:
+      - Network protocol (RFC): reference/protocol.md
+      - Scripting API: reference/scripting-api.md
+      - Components: reference/components.md
+      - Systems: reference/systems.md
+      - Game and settings files: reference/game-file.md
+      - Code map: reference/code-map.md
+      - Glossary: reference/glossary.md
+  - Comparative study:
+      - Overview: comparative-study/index.md
+      - Libraries and tools: comparative-study/libraries.md
+      - Algorithms and data structures: comparative-study/algorithms-and-data-structures.md
+      - Networking: comparative-study/networking.md
+      - Storage: comparative-study/storage.md
+      - Security: comparative-study/security.md
+  - Network measurements:
+      - Test bench: measurements/index.md
+      - netem results (2026-11-08): measurements/netem-2026-11-08/report.md
+  - Team:
+      - Onboarding: contributing/onboarding.md
+      - Coding conventions: contributing/conventions.md
+      - Git workflow: contributing/git-workflow.md
+      - Handover and team changes: contributing/handover.md
+      - Release process: contributing/release.md
+      - Security policy: contributing/security-policy.md
+  - Project:
+      - Accessibility: project/accessibility.md
+      - Roadmap: project/roadmap.md

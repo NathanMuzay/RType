@@ -1,0 +1,4376 @@
+{
+  "world": {"width": 1920, "height": 1080},
+  "window": {"width": 1280, "height": 720, "title": "R-Type"},
+  "tickRate": 60,
+  "network": {
+    "defaultPort": 4242,
+    "maxPlayers": 4,
+    "maxEntities": 130,
+    "snapshotEveryTicks": 3,
+    "inputIntervalMs": 33,
+    "inputReleaseDelayMs": 500,
+    "heartbeatIntervalMs": 1000,
+    "connectRetryIntervalMs": 1000,
+    "connectAttempts": 5,
+    "sessionTimeoutMs": 5000,
+    "maxClients": 192,
+    "maxRooms": 48,
+    "roomNameMaxLength": 16,
+    "roomCodeMaxLength": 8,
+    "maxJoinAttempts": 5,
+    "chatMaxLength": 64,
+    "chatIntervalMs": 500,
+    "playerNameMaxLength": 12
+  },
+  "files": {
+    "serverPrefabs": "rtype_server_prefabs.json",
+    "clientPrefabs": "rtype_client_prefabs.json",
+    "settings": "rtype_settings.json",
+    "scripts": "../scripts",
+    "console": "console.py"
+  },
+  "layers": ["player", "enemy", "player_missile", "enemy_missile", "pickup", "force", "terrain"],
+  "worldValues": [
+    {"name": "stage"},
+    {"name": "phase", "labels": ["intro", "running", "boss", "clear", "victory", "defeat", "ending", "fin", "credits"]},
+    {"name": "progress"},
+    {"name": "bossHealth"},
+    {"name": "shake"},
+    {"name": "skip"},
+    {"name": "choice"},
+    {"name": "mode", "labels": ["COOP", "VERSUS"]},
+    {"name": "duel", "labels": ["WAITING", "ROUND", "FIGHT", "POINT", "CHAMPION"]},
+    {"name": "round"},
+    {"name": "winsP1"},
+    {"name": "winsP2"},
+    {"name": "winner"},
+    {"name": "whiteout"},
+    {"name": "bomb", "labels": ["READY", "ARMED", "FLASH", "USED"]},
+    {"name": "music", "labels": ["none", "stage1", "stage2", "stage3", "boss", "boss3", "victory", "fin", "versus"]}
+  ],
+  "playerValues": [
+    {"name": "weapon", "labels": ["SINGLE", "DOUBLE", "SPREAD"]},
+    {"name": "force", "labels": ["", "FORCE", "FORCE OUT", "FORCE BACK"]},
+    {"name": "drone", "labels": ["", "DRONE"]},
+    {"name": "charge"}
+  ],
+  "rules": [
+    {"name": "difficulty", "labels": ["NORMAL", "HARD", "EASY"]},
+    {"name": "friendlyFire", "labels": ["OFF", "ON"]},
+    {"name": "cheats", "labels": ["OFF", "ON"]},
+    {"name": "bonuses", "labels": ["ON", "OFF"]},
+    {"name": "level", "labels": ["1", "2", "3"]},
+    {"name": "mode", "labels": ["COOP", "VERSUS"], "maxPlayers": [4, 2]},
+    {"name": "rounds", "labels": ["3", "5", "1"]}
+  ],
+  "consoleRule": "cheats",
+  "freeCommands": ["help", "next", "restart"],
+  "eventSounds": ["warning", "powerup", "bossDeath", "bomb", "laserCharge", "laserFire"],
+  "secretCode": "EPITECH",
+  "playerPrefab": "player",
+  "serverScene": [{"prefab": "match"}, {"prefab": "director"}],
+  "serverSystems": [
+    "PlayerControl",
+    "Weapon",
+    "Invulnerability",
+    "Movement",
+    "Tilemap",
+    "Attachment",
+    "Solid",
+    "Bounds",
+    "Collision",
+    "Damage",
+    "HitFlash",
+    "Script",
+    "Lifetime",
+    "Lives",
+    "Score",
+    "Offscreen",
+    "Match",
+    "Respawn"
+  ],
+  "textures": {
+    "player_ships": "rtype/sprites/players/r-typesheet42.gif",
+    "player_missiles": "rtype/sprites/projectiles/r-typesheet1.gif",
+    "enemy_missiles": "rtype/sprites/projectiles/r-typesheet43.gif",
+    "bydos": "rtype/sprites/enemies/r-typesheet5.gif",
+    "explosions": "rtype/sprites/effects/r-typesheet44.gif",
+    "hoppers": "rtype/sprites/enemies/r-typesheet19.gif",
+    "pods": "rtype/sprites/enemies/r-typesheet23.gif",
+    "heavies": "rtype/sprites/enemies/r-typesheet26.gif",
+    "boss_dobkeratops": "rtype/sprites/bosses/r-typesheet30.gif",
+    "boss_warship": "rtype/sprites/bosses/r-typesheet38.gif",
+    "boss_vessel": "rtype/sprites/bosses/r-typesheet37.gif",
+    "boss_missiles": "rtype/sprites/projectiles/r-typesheet30a.gif",
+    "chasers": "rtype/sprites/enemies/r-typesheet13.gif",
+    "turrets": "rtype/sprites/enemies/r-typesheet18.gif",
+    "splitters": "rtype/sprites/enemies/r-typesheet24.gif",
+    "splitter_smalls": "rtype/sprites/enemies/r-typesheet3.gif",
+    "mines": "rtype/sprites/enemies/r-typesheet25.gif",
+    "carriers": "rtype/sprites/enemies/r-typesheet28.gif",
+    "snakes": "rtype/sprites/enemies/r-typesheet16.gif",
+    "pickups": "rtype/sprites/players/r-typesheet2.gif",
+    "powerups": "rtype/sprites/pickups/powerups.png",
+    "bg_paradise": "rtype/backgrounds/stage1_paradise.png",
+    "bg_sky": "rtype/backgrounds/stage2_sky.png",
+    "bg_hell": "rtype/backgrounds/stage3_hell.png",
+    "bg_menu": "rtype/backgrounds/menu_space.png",
+    "ui_logo": "rtype/sprites/ui/logo.png",
+    "ui_buttons": "rtype/sprites/ui/buttons.png",
+    "ui_hud": "rtype/sprites/ui/hud.png",
+    "terrain": "rtype/sprites/terrain/techblocks.png",
+    "bg_interior": "rtype/backgrounds/stage2_interior.png",
+    "boss_beam": "rtype/sprites/projectiles/boss_beam.png",
+    "ui_warnings": "rtype/sprites/ui/warnings.png",
+    "ui_warnings_vertical": "rtype/sprites/ui/warnings_vertical.png",
+    "boss_beam_vertical": "rtype/sprites/projectiles/boss_beam_vertical.png",
+    "meteor": "rtype/sprites/projectiles/meteor.png",
+    "flyers": "rtype/sprites/enemies/r-typesheet8.gif"
+  },
+  "fonts": {"hud": "rtype/fonts/bytebounce.medium.ttf"},
+  "sounds": {
+    "shot": "rtype/sounds/LASER_GUN.mp3",
+    "explosion": "rtype/sounds/EXPLOSION.mp3",
+    "hover": "rtype/sounds/SURVOL_CLICK.mp3",
+    "click": "rtype/sounds/CLICK.mp3",
+    "warning": "rtype/sounds/SURVOL_CLICK.mp3",
+    "powerup": "rtype/sounds/CLICK.mp3",
+    "bossDeath": "rtype/sounds/EXPLOSION.mp3",
+    "bomb": "rtype/sounds/DEATH_BOSS.ogg",
+    "deathBydo": "rtype/sounds/DEATH_BYDO.ogg",
+    "deathMech": "rtype/sounds/DEATH_MECH.ogg",
+    "deathBoss": "rtype/sounds/DEATH_BOSS.ogg",
+    "shotBydo": "rtype/sounds/SHOT_BYDO.ogg",
+    "shotMech": "rtype/sounds/SHOT_MECH.ogg",
+    "shotBoss": "rtype/sounds/SHOT_BOSS.ogg",
+    "introChimes": "rtype/sounds/INTRO_CHIMES.wav",
+    "laserCharge": "rtype/sounds/LASER_CHARGE.mp3",
+    "laserFire": "rtype/sounds/LASER_FIRE.mp3"
+  },
+  "music": {
+    "title": "rtype/music/TITLE_THEME.mp3",
+    "boss": "rtype/music/BOSS_THEME.mp3",
+    "stage1": "rtype/music/STAGE1_PARADISE.ogg",
+    "stage2": "rtype/music/STAGE2_SKY.mp3",
+    "stage3": "rtype/music/STAGE3_HELL.mp3",
+    "boss3": "rtype/music/BOSS3.mp3",
+    "victory": "rtype/music/VICTORY.mp3",
+    "fin": "rtype/music/FIN.mp3"
+  },
+  "kinds": {
+    "1": "ship",
+    "2": "player_missile",
+    "3": "bydo",
+    "4": "enemy_missile",
+    "5": "hopper",
+    "6": "pod",
+    "7": "heavy",
+    "8": "boss_dobkeratops",
+    "9": "boss_warship",
+    "10": "boss_vessel",
+    "11": "boss_missile",
+    "12": "chaser",
+    "13": "turret",
+    "14": "splitter",
+    "15": "splitter_small",
+    "16": "mine",
+    "17": "enemy_bullet",
+    "18": "boss_orb",
+    "19": "boss_laser",
+    "20": "boss_beam",
+    "21": "warning",
+    "22": "powerup_double",
+    "23": "powerup_spread",
+    "24": "powerup_heal",
+    "25": "powerup_shield",
+    "26": "powerup_force",
+    "27": "force",
+    "28": "player_missile_charged",
+    "29": "carrier",
+    "30": "snake_head",
+    "31": "snake_segment",
+    "32": "ground_turret",
+    "33": "tile_wall",
+    "34": "tile_break",
+    "35": "drone",
+    "36": "powerup_drone",
+    "37": "vessel_beam",
+    "38": "vessel_warn",
+    "39": "spore",
+    "40": "spore_small",
+    "41": "laser_shot",
+    "42": "homing_missile",
+    "43": "missile",
+    "44": "ceiling_turret",
+    "45": "tile_ceiling",
+    "46": "tile_pipe",
+    "47": "vessel_turret",
+    "48": "vessel_turret_top",
+    "49": "meteor",
+    "50": "vessel_warn_vertical",
+    "51": "vessel_beam_vertical",
+    "52": "boss_blast"
+  },
+  "startScene": "menu",
+  "loadingScene": "loading",
+  "loadingMinSeconds": 7.0,
+  "preload": [
+    "player_ships",
+    "player_missiles",
+    "enemy_missiles",
+    "bydos",
+    "explosions",
+    "hoppers",
+    "pods",
+    "heavies",
+    "boss_dobkeratops",
+    "boss_warship",
+    "boss_vessel",
+    "bg_menu",
+    "ui_logo",
+    "ui_buttons",
+    "ui_hud",
+    "terrain",
+    "bg_interior",
+    "boss_beam",
+    "ui_warnings",
+    "ui_warnings_vertical",
+    "boss_beam_vertical",
+    "meteor",
+    "flyers",
+    "boss_missiles",
+    "chasers",
+    "turrets",
+    "splitters",
+    "splitter_smalls",
+    "mines",
+    "carriers",
+    "snakes",
+    "pickups",
+    "powerups",
+    "shot",
+    "explosion",
+    "hover",
+    "click",
+    "warning",
+    "powerup",
+    "bossDeath"
+  ],
+  "scenes": {
+    "menu": {
+      "music": "title",
+      "escapeAction": "quit",
+      "systems": [
+        "Parallax",
+        "Pointer",
+        "FocusNavigation",
+        "TextField",
+        "ListView",
+        "BoundText",
+        "Visibility",
+        "ButtonStyle",
+        "ProgressBar",
+        "Audio",
+        "Cleanup"
+      ],
+      "entities": [
+        {"prefab": "star_far", "count": 120, "scatter": true},
+        {"prefab": "star_mid", "count": 60, "scatter": true},
+        {"prefab": "star_near", "count": 25, "scatter": true},
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 522, "y": 120},
+            "Sprite": {"texture": "ui_logo", "frame": [0, 0, 701, 225], "scale": 1.25}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 660, "y": 422},
+            "Text": {"font": "hud", "size": 24, "color": [150, 150, 180, 255], "content": "PLAYER NAME"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 660, "y": 460},
+            "RectShape": {"width": 600, "height": 70, "color": [10, 10, 35, 240], "outline": [80, 200, 255, 255], "thickness": 2},
+            "Text": {"font": "hud", "size": 36, "color": [255, 255, 255, 255], "offsetX": 20, "offsetY": 14},
+            "TextField": {"name": "playerName", "maxLength": 12, "placeholder": "YOUR NAME", "width": 600, "height": 70},
+            "Focusable": {"order": 0}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 0, "y": 0},
+            "Sprite": {"texture": "bg_menu", "frame": [0, 0, 1920, 1080], "scale": 1},
+            "Background": {}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 660, "y": 590},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 0, 600, 80], "scale": 1},
+            "Text": {
+              "font": "hud",
+              "size": 40,
+              "color": [255, 255, 255, 255],
+              "content": "CONNECT",
+              "offsetX": 237,
+              "offsetY": 22
+            },
+            "Button": {
+              "action": "connect",
+              "width": 600,
+              "height": 80,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 0, 600, 80],
+              "hoverFrame": [600, 0, 600, 80],
+              "pressedFrame": [1200, 0, 600, 80]
+            },
+            "Focusable": {"order": 1}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 660, "y": 700},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 0, 600, 80], "scale": 1},
+            "Text": {
+              "font": "hud",
+              "size": 40,
+              "color": [255, 255, 255, 255],
+              "content": "SETTINGS",
+              "offsetX": 230,
+              "offsetY": 22
+            },
+            "Button": {
+              "action": "settings",
+              "width": 600,
+              "height": 80,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 0, 600, 80],
+              "hoverFrame": [600, 0, 600, 80],
+              "pressedFrame": [1200, 0, 600, 80]
+            },
+            "Focusable": {"order": 2}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 660, "y": 810},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 0, 600, 80], "scale": 1},
+            "Text": {
+              "font": "hud",
+              "size": 40,
+              "color": [255, 255, 255, 255],
+              "content": "QUIT",
+              "offsetX": 266,
+              "offsetY": 22
+            },
+            "Button": {
+              "action": "quit",
+              "width": 600,
+              "height": 80,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 0, 600, 80],
+              "hoverFrame": [600, 0, 600, 80],
+              "pressedFrame": [1200, 0, 600, 80]
+            },
+            "Focusable": {"order": 3}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 660, "y": 920},
+            "Text": {"font": "hud", "size": 32, "color": [255, 90, 90, 255]},
+            "BoundText": {"format": "{menu.error}"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 20, "y": 800},
+            "RectShape": {"width": 440, "height": 260, "color": [0, 0, 0, 170]},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 810},
+            "Text": {"font": "hud", "size": 24, "color": [255, 255, 255, 255]},
+            "BoundText": {"format": "FPS {debug.fps}    PING {debug.ping} MS"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 844},
+            "Text": {"font": "hud", "size": 24, "color": [255, 255, 255, 255]},
+            "BoundText": {"format": "ENTITIES {debug.entities}    MEMORY {debug.memory} MB"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 878},
+            "Text": {"font": "hud", "size": 24, "color": [255, 255, 255, 255]},
+            "BoundText": {"format": "IN {debug.in} KB/S    OUT {debug.out} KB/S"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 912},
+            "Text": {"font": "hud", "size": 24, "color": [170, 170, 190, 255]},
+            "BoundText": {"format": "PING HISTORY"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping0", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 47, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping1", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 60, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping2", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 73, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping3", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 86, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping4", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 99, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping5", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 112, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping6", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 125, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping7", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 138, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping8", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 151, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping9", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 164, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping10", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 177, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping11", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 190, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping12", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 203, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping13", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 216, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping14", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 229, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping15", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 242, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping16", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 255, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping17", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 268, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping18", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 281, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping19", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 294, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping20", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 307, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping21", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 320, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping22", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 333, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping23", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 346, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping24", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 359, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping25", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 372, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping26", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 385, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping27", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 398, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping28", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 411, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping29", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        }
+      ]
+    },
+    "lobby": {
+      "music": "title",
+      "escapeAction": "disconnect",
+      "systems": [
+        "Parallax",
+        "Pointer",
+        "FocusNavigation",
+        "TextField",
+        "ListView",
+        "BoundText",
+        "Visibility",
+        "Choice",
+        "ButtonStyle",
+        "ProgressBar",
+        "Audio",
+        "Cleanup"
+      ],
+      "entities": [
+        {"prefab": "star_far", "count": 120, "scatter": true},
+        {"prefab": "star_mid", "count": 60, "scatter": true},
+        {"prefab": "star_near", "count": 25, "scatter": true},
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 0, "y": 0},
+            "Sprite": {"texture": "bg_menu", "frame": [0, 0, 1920, 1080], "scale": 1},
+            "Background": {}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 80, "y": 50},
+            "Text": {"font": "hud", "size": 80, "color": [80, 200, 255, 255], "content": "LOBBY"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1500, "y": 80},
+            "Text": {"font": "hud", "size": 32, "color": [150, 150, 180, 255]},
+            "BoundText": {"format": "{lobby.status}"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 80, "y": 180},
+            "Text": {"font": "hud", "size": 32, "color": [150, 150, 180, 255], "content": "ROOMS  (CLICK TO JOIN)"},
+            "VisibleWhen": {"key": "lobby.popup", "value": "no"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 80, "y": 250},
+            "Text": {"font": "hud", "size": 32, "color": [150, 150, 180, 255]},
+            "BoundText": {"format": "{lobby.empty}"},
+            "VisibleWhen": {"key": "lobby.popup", "value": "no"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 80, "y": 240},
+            "ListView": {"source": "rooms", "spacing": 80, "maxRows": 8, "parts": [{"prefab": "room_row"}]},
+            "VisibleWhen": {"key": "lobby.popup", "value": "no"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1100, "y": 140},
+            "Text": {"font": "hud", "size": 32, "color": [150, 150, 180, 255], "content": "CREATE A ROOM"},
+            "VisibleWhen": {"key": "lobby.popup", "value": "no"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1100, "y": 180},
+            "RectShape": {"width": 700, "height": 70, "color": [10, 10, 35, 240]},
+            "Text": {"font": "hud", "size": 36, "color": [255, 255, 255, 255], "offsetX": 20, "offsetY": 14},
+            "TextField": {"name": "roomName", "maxLength": 16, "placeholder": "ROOM NAME", "width": 700, "height": 70},
+            "Focusable": {"order": 0},
+            "VisibleWhen": {"key": "lobby.popup", "value": "no"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1100, "y": 260},
+            "RectShape": {"width": 700, "height": 70, "color": [10, 10, 35, 240]},
+            "Text": {"font": "hud", "size": 36, "color": [255, 255, 255, 255], "offsetX": 20, "offsetY": 14},
+            "TextField": {
+              "name": "roomCode",
+              "maxLength": 8,
+              "placeholder": "CODE (OPTIONAL)",
+              "width": 700,
+              "height": 70
+            },
+            "Focusable": {"order": 1},
+            "VisibleWhen": {"key": "lobby.popup", "value": "no"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1100, "y": 820},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 240, 700, 70], "scale": 1},
+            "Text": {
+              "font": "hud",
+              "size": 40,
+              "color": [255, 255, 255, 255],
+              "content": "CREATE",
+              "offsetX": 30,
+              "offsetY": 12.0
+            },
+            "Button": {
+              "action": "create_room",
+              "width": 700,
+              "height": 70,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 240, 700, 70],
+              "hoverFrame": [700, 240, 700, 70],
+              "pressedFrame": [1400, 240, 700, 70]
+            },
+            "Focusable": {"order": 8},
+            "VisibleWhen": {"key": "lobby.popup", "value": "no"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1100, "y": 902},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 240, 700, 70], "scale": 1},
+            "Text": {
+              "font": "hud",
+              "size": 40,
+              "color": [255, 255, 255, 255],
+              "content": "REFRESH",
+              "offsetX": 30,
+              "offsetY": 12.0
+            },
+            "Button": {
+              "action": "refresh_rooms",
+              "width": 700,
+              "height": 70,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 240, 700, 70],
+              "hoverFrame": [700, 240, 700, 70],
+              "pressedFrame": [1400, 240, 700, 70]
+            },
+            "Focusable": {"order": 9},
+            "VisibleWhen": {"key": "lobby.popup", "value": "no"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1100, "y": 984},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 240, 700, 70], "scale": 1},
+            "Text": {
+              "font": "hud",
+              "size": 40,
+              "color": [255, 255, 255, 255],
+              "content": "BACK",
+              "offsetX": 30,
+              "offsetY": 12.0
+            },
+            "Button": {
+              "action": "disconnect",
+              "width": 700,
+              "height": 70,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 240, 700, 70],
+              "hoverFrame": [700, 240, 700, 70],
+              "pressedFrame": [1400, 240, 700, 70]
+            },
+            "Focusable": {"order": 10},
+            "VisibleWhen": {"key": "lobby.popup", "value": "no"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 80, "y": 980},
+            "Text": {"font": "hud", "size": 32, "color": [255, 90, 90, 255]},
+            "BoundText": {"format": "{lobby.error}"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 0, "y": 0},
+            "RectShape": {"width": 1920, "height": 1080, "color": [0, 0, 0, 170]},
+            "VisibleWhen": {"key": "lobby.popup", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 660, "y": 330},
+            "RectShape": {"width": 600, "height": 420, "color": [15, 20, 50, 250]},
+            "VisibleWhen": {"key": "lobby.popup", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 700, "y": 360},
+            "Text": {"font": "hud", "size": 48, "color": [80, 200, 255, 255], "content": "ENTER CODE"},
+            "VisibleWhen": {"key": "lobby.popup", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1180, "y": 345},
+            "RectShape": {"width": 64, "height": 64, "color": [110, 20, 30, 230]},
+            "Text": {
+              "font": "hud",
+              "size": 40,
+              "color": [255, 255, 255, 255],
+              "content": "X",
+              "offsetX": 20,
+              "offsetY": 8
+            },
+            "Button": {
+              "action": "close_popup",
+              "width": 64,
+              "height": 64,
+              "normal": [110, 20, 30, 230],
+              "hover": [190, 40, 50, 240],
+              "pressed": [255, 90, 90, 255],
+              "hoverSound": "hover",
+              "clickSound": "click"
+            },
+            "Focusable": {"order": 2},
+            "VisibleWhen": {"key": "lobby.popup", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 700, "y": 460},
+            "RectShape": {"width": 520, "height": 70, "color": [10, 10, 35, 240]},
+            "Text": {"font": "hud", "size": 36, "color": [255, 255, 255, 255], "offsetX": 20, "offsetY": 14},
+            "TextField": {"name": "joinCode", "maxLength": 8, "placeholder": "CODE", "width": 520, "height": 70},
+            "Focusable": {"order": 0},
+            "VisibleWhen": {"key": "lobby.popup", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 700, "y": 570},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 374, 520, 80], "scale": 1},
+            "Text": {
+              "font": "hud",
+              "size": 40,
+              "color": [255, 255, 255, 255],
+              "content": "JOIN",
+              "offsetX": 30,
+              "offsetY": 16
+            },
+            "Button": {
+              "action": "join_code",
+              "width": 520,
+              "height": 80,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 374, 520, 80],
+              "hoverFrame": [520, 374, 520, 80],
+              "pressedFrame": [1040, 374, 520, 80]
+            },
+            "Focusable": {"order": 1},
+            "VisibleWhen": {"key": "lobby.popup", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 700, "y": 680},
+            "Text": {"font": "hud", "size": 28, "color": [255, 90, 90, 255]},
+            "BoundText": {"format": "{lobby.popupError}"},
+            "VisibleWhen": {"key": "lobby.popup", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1100, "y": 345},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 240, 700, 70], "scale": 1},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "offsetX": 20, "offsetY": 16},
+            "BoundText": {"format": "MODE  < {field.rule.mode} >"},
+            "Button": {
+              "action": "",
+              "width": 700,
+              "height": 70,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 240, 700, 70],
+              "hoverFrame": [700, 240, 700, 70],
+              "pressedFrame": [1400, 240, 700, 70]
+            },
+            "Choice": {"name": "rule.mode", "options": ["COOP", "VERSUS"]},
+            "Focusable": {"order": 2},
+            "VisibleWhen": {"key": "lobby.popup", "value": "no"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1100, "y": 422},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 240, 700, 70], "scale": 1},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "offsetX": 20, "offsetY": 16},
+            "BoundText": {"format": "LEVEL  < {field.rule.level} >"},
+            "Button": {
+              "action": "",
+              "width": 700,
+              "height": 70,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 240, 700, 70],
+              "hoverFrame": [700, 240, 700, 70],
+              "pressedFrame": [1400, 240, 700, 70]
+            },
+            "Choice": {"name": "rule.level", "options": ["1", "2", "3"]},
+            "Focusable": {"order": 3},
+            "VisibleWhen": {"key": "lobby.popup", "value": "no", "and": [{"key": "field.rule.mode", "value": "COOP"}]}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1100, "y": 499},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 240, 700, 70], "scale": 1},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "offsetX": 20, "offsetY": 16},
+            "BoundText": {"format": "DIFFICULTY  < {field.rule.difficulty} >"},
+            "Button": {
+              "action": "",
+              "width": 700,
+              "height": 70,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 240, 700, 70],
+              "hoverFrame": [700, 240, 700, 70],
+              "pressedFrame": [1400, 240, 700, 70]
+            },
+            "Choice": {"name": "rule.difficulty", "options": ["NORMAL", "HARD", "EASY"]},
+            "Focusable": {"order": 4},
+            "VisibleWhen": {"key": "lobby.popup", "value": "no", "and": [{"key": "field.rule.mode", "value": "COOP"}]}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1100, "y": 576},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 240, 700, 70], "scale": 1},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "offsetX": 20, "offsetY": 16},
+            "BoundText": {"format": "FRIENDLY FIRE  < {field.rule.friendlyFire} >"},
+            "Button": {
+              "action": "",
+              "width": 700,
+              "height": 70,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 240, 700, 70],
+              "hoverFrame": [700, 240, 700, 70],
+              "pressedFrame": [1400, 240, 700, 70]
+            },
+            "Choice": {"name": "rule.friendlyFire", "options": ["OFF", "ON"]},
+            "Focusable": {"order": 5},
+            "VisibleWhen": {"key": "lobby.popup", "value": "no", "and": [{"key": "field.rule.mode", "value": "COOP"}]}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1100, "y": 653},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 240, 700, 70], "scale": 1},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "offsetX": 20, "offsetY": 16},
+            "BoundText": {"format": "BONUS  < {field.rule.bonuses} >"},
+            "Button": {
+              "action": "",
+              "width": 700,
+              "height": 70,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 240, 700, 70],
+              "hoverFrame": [700, 240, 700, 70],
+              "pressedFrame": [1400, 240, 700, 70]
+            },
+            "Choice": {"name": "rule.bonuses", "options": ["ON", "OFF"]},
+            "Focusable": {"order": 6},
+            "VisibleWhen": {"key": "lobby.popup", "value": "no", "and": [{"key": "field.rule.mode", "value": "COOP"}]}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 20, "y": 800},
+            "RectShape": {"width": 440, "height": 260, "color": [0, 0, 0, 170]},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 810},
+            "Text": {"font": "hud", "size": 24, "color": [255, 255, 255, 255]},
+            "BoundText": {"format": "FPS {debug.fps}    PING {debug.ping} MS"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 844},
+            "Text": {"font": "hud", "size": 24, "color": [255, 255, 255, 255]},
+            "BoundText": {"format": "ENTITIES {debug.entities}    MEMORY {debug.memory} MB"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 878},
+            "Text": {"font": "hud", "size": 24, "color": [255, 255, 255, 255]},
+            "BoundText": {"format": "IN {debug.in} KB/S    OUT {debug.out} KB/S"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 912},
+            "Text": {"font": "hud", "size": 24, "color": [170, 170, 190, 255]},
+            "BoundText": {"format": "PING HISTORY"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping0", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 47, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping1", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 60, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping2", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 73, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping3", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 86, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping4", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 99, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping5", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 112, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping6", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 125, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping7", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 138, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping8", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 151, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping9", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 164, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping10", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 177, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping11", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 190, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping12", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 203, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping13", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 216, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping14", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 229, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping15", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 242, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping16", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 255, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping17", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 268, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping18", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 281, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping19", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 294, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping20", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 307, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping21", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 320, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping22", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 333, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping23", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 346, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping24", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 359, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping25", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 372, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping26", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 385, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping27", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 398, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping28", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 411, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping29", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1100, "y": 730},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 240, 700, 70], "scale": 1},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "offsetX": 20, "offsetY": 16},
+            "BoundText": {"format": "CHEATS  < {field.rule.cheats} >"},
+            "Button": {
+              "action": "",
+              "width": 700,
+              "height": 70,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 240, 700, 70],
+              "hoverFrame": [700, 240, 700, 70],
+              "pressedFrame": [1400, 240, 700, 70]
+            },
+            "Choice": {"name": "rule.cheats", "options": ["OFF", "ON"]},
+            "Focusable": {"order": 7},
+            "VisibleWhen": {"key": "lobby.popup", "value": "no", "and": [{"key": "field.rule.mode", "value": "COOP"}]}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1100, "y": 422},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 240, 700, 70], "scale": 1},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "offsetX": 20, "offsetY": 16},
+            "BoundText": {"format": "ROUNDS TO WIN  < {field.rule.rounds} >"},
+            "Button": {
+              "action": "",
+              "width": 700,
+              "height": 70,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 240, 700, 70],
+              "hoverFrame": [700, 240, 700, 70],
+              "pressedFrame": [1400, 240, 700, 70]
+            },
+            "Choice": {"name": "rule.rounds", "options": ["3", "5", "1"]},
+            "Focusable": {"order": 3},
+            "VisibleWhen": {"key": "lobby.popup", "value": "no", "and": [{"key": "field.rule.mode", "value": "VERSUS"}]}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1100, "y": 499},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 240, 700, 70], "scale": 1},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "offsetX": 20, "offsetY": 16},
+            "BoundText": {"format": "BONUS  < {field.rule.bonuses} >"},
+            "Button": {
+              "action": "",
+              "width": 700,
+              "height": 70,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 240, 700, 70],
+              "hoverFrame": [700, 240, 700, 70],
+              "pressedFrame": [1400, 240, 700, 70]
+            },
+            "Choice": {"name": "rule.bonuses", "options": ["ON", "OFF"]},
+            "Focusable": {"order": 4},
+            "VisibleWhen": {"key": "lobby.popup", "value": "no", "and": [{"key": "field.rule.mode", "value": "VERSUS"}]}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1100, "y": 576},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 240, 700, 70], "scale": 1},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "offsetX": 20, "offsetY": 16},
+            "BoundText": {"format": "CHEATS  < {field.rule.cheats} >"},
+            "Button": {
+              "action": "",
+              "width": 700,
+              "height": 70,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 240, 700, 70],
+              "hoverFrame": [700, 240, 700, 70],
+              "pressedFrame": [1400, 240, 700, 70]
+            },
+            "Choice": {"name": "rule.cheats", "options": ["OFF", "ON"]},
+            "Focusable": {"order": 5},
+            "VisibleWhen": {"key": "lobby.popup", "value": "no", "and": [{"key": "field.rule.mode", "value": "VERSUS"}]}
+          }
+        }
+      ]
+    },
+    "room": {
+      "music": "title",
+      "escapeAction": "leave_room",
+      "systems": [
+        "Parallax",
+        "Pointer",
+        "FocusNavigation",
+        "TextField",
+        "ListView",
+        "BoundText",
+        "Visibility",
+        "ButtonStyle",
+        "ProgressBar",
+        "Audio",
+        "Cleanup"
+      ],
+      "entities": [
+        {"prefab": "star_far", "count": 120, "scatter": true},
+        {"prefab": "star_mid", "count": 60, "scatter": true},
+        {"prefab": "star_near", "count": 25, "scatter": true},
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 0, "y": 0},
+            "Sprite": {"texture": "bg_menu", "frame": [0, 0, 1920, 1080], "scale": 1},
+            "Background": {}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 80, "y": 50},
+            "Text": {"font": "hud", "size": 80, "color": [80, 200, 255, 255]},
+            "BoundText": {"format": "ROOM  {room.name}"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 80, "y": 115},
+            "Text": {"font": "hud", "size": 32, "color": [255, 200, 80, 255]},
+            "BoundText": {"format": "LEVEL {field.rule.level}"},
+            "VisibleWhen": {"key": "room.isOwner", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 80, "y": 180},
+            "Text": {"font": "hud", "size": 32, "color": [150, 150, 180, 255], "content": "PLAYERS"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 80, "y": 240},
+            "ListView": {
+              "source": "members",
+              "spacing": 100,
+              "maxRows": 4,
+              "parts": [{"prefab": "member_row"}, {"prefab": "kick_button", "offsetX": 720}]
+            }
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1200, "y": 240},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 0, 600, 80], "scale": 1},
+            "Text": {
+              "font": "hud",
+              "size": 40,
+              "color": [255, 255, 255, 255],
+              "content": "START GAME",
+              "offsetX": 30,
+              "offsetY": 16.0
+            },
+            "Button": {
+              "action": "start_game",
+              "width": 600,
+              "height": 80,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 0, 600, 80],
+              "hoverFrame": [600, 0, 600, 80],
+              "pressedFrame": [1200, 0, 600, 80]
+            },
+            "Focusable": {"order": 0},
+            "VisibleWhen": {"key": "room.isOwner", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1200, "y": 350},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 0, 600, 80], "scale": 1},
+            "Text": {
+              "font": "hud",
+              "size": 40,
+              "color": [255, 255, 255, 255],
+              "content": "DELETE ROOM",
+              "offsetX": 30,
+              "offsetY": 16.0
+            },
+            "Button": {
+              "action": "delete_room",
+              "width": 600,
+              "height": 80,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 0, 600, 80],
+              "hoverFrame": [600, 0, 600, 80],
+              "pressedFrame": [1200, 0, 600, 80]
+            },
+            "Focusable": {"order": 1},
+            "VisibleWhen": {"key": "room.isOwner", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1200, "y": 260},
+            "Text": {"font": "hud", "size": 32, "color": [150, 150, 180, 255], "content": "WAITING FOR THE OWNER..."},
+            "VisibleWhen": {"key": "room.isOwner", "value": "no"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1200, "y": 350},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 0, 600, 80], "scale": 1},
+            "Text": {
+              "font": "hud",
+              "size": 40,
+              "color": [255, 255, 255, 255],
+              "content": "LEAVE",
+              "offsetX": 30,
+              "offsetY": 16.0
+            },
+            "Button": {
+              "action": "leave_room",
+              "width": 600,
+              "height": 80,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 0, 600, 80],
+              "hoverFrame": [600, 0, 600, 80],
+              "pressedFrame": [1200, 0, 600, 80]
+            },
+            "Focusable": {"order": 2},
+            "VisibleWhen": {"key": "room.isOwner", "value": "no"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1200, "y": 640},
+            "RectShape": {"width": 600, "height": 410, "color": [8, 10, 28, 215], "outline": [80, 200, 255, 180], "thickness": 3}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1224, "y": 654},
+            "Text": {"font": "hud", "size": 28, "color": [80, 200, 255, 255], "content": "CHAT"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1224, "y": 700},
+            "ListView": {"source": "chat", "spacing": 40, "maxRows": 5, "parts": [{"prefab": "chat_row"}]}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1224, "y": 912},
+            "RectShape": {"width": 552, "height": 54, "color": [16, 18, 46, 240], "outline": [60, 70, 120, 200], "thickness": 2},
+            "Text": {"font": "hud", "size": 28, "color": [255, 255, 255, 255], "offsetX": 16, "offsetY": 11},
+            "TextField": {"name": "chatInput", "maxLength": 64, "placeholder": "MESSAGE", "width": 552, "height": 54, "submit": "send_chat"},
+            "Focusable": {"order": 3}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1224, "y": 980},
+            "RectShape": {"width": 552, "height": 54, "color": [20, 30, 70, 230]},
+            "Text": {"font": "hud", "size": 30, "color": [255, 255, 255, 255], "content": "SEND", "offsetX": 24, "offsetY": 10},
+            "Button": {"action": "send_chat", "width": 552, "height": 54, "normal": [20, 30, 70, 230], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "hoverSound": "hover", "clickSound": "click"},
+            "Focusable": {"order": 4}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 80, "y": 980},
+            "Text": {"font": "hud", "size": 32, "color": [255, 90, 90, 255]},
+            "BoundText": {"format": "{room.error}"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 20, "y": 800},
+            "RectShape": {"width": 440, "height": 260, "color": [0, 0, 0, 170]},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 810},
+            "Text": {"font": "hud", "size": 24, "color": [255, 255, 255, 255]},
+            "BoundText": {"format": "FPS {debug.fps}    PING {debug.ping} MS"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 844},
+            "Text": {"font": "hud", "size": 24, "color": [255, 255, 255, 255]},
+            "BoundText": {"format": "ENTITIES {debug.entities}    MEMORY {debug.memory} MB"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 878},
+            "Text": {"font": "hud", "size": 24, "color": [255, 255, 255, 255]},
+            "BoundText": {"format": "IN {debug.in} KB/S    OUT {debug.out} KB/S"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 912},
+            "Text": {"font": "hud", "size": 24, "color": [170, 170, 190, 255]},
+            "BoundText": {"format": "PING HISTORY"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping0", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 47, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping1", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 60, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping2", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 73, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping3", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 86, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping4", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 99, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping5", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 112, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping6", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 125, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping7", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 138, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping8", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 151, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping9", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 164, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping10", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 177, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping11", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 190, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping12", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 203, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping13", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 216, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping14", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 229, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping15", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 242, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping16", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 255, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping17", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 268, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping18", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 281, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping19", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 294, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping20", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 307, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping21", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 320, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping22", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 333, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping23", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 346, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping24", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 359, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping25", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 372, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping26", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 385, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping27", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 398, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping28", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 411, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping29", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 0, "y": 0},
+            "RectShape": {"width": 1920, "height": 440, "color": [6, 10, 30, 245]},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 0, "y": 440},
+            "RectShape": {"width": 1920, "height": 4, "color": [80, 200, 255, 255]},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 40, "y": 14},
+            "Text": {
+              "font": "hud",
+              "size": 22,
+              "color": [80, 200, 255, 255],
+              "content": "CONSOLE   -   F1 TO CLOSE   -   TYPE help"
+            },
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 40, "y": 52},
+            "Text": {"font": "hud", "size": 26, "color": [210, 225, 255, 255]},
+            "BoundText": {"format": "{console.line0}"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 40, "y": 90},
+            "Text": {"font": "hud", "size": 26, "color": [210, 225, 255, 255]},
+            "BoundText": {"format": "{console.line1}"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 40, "y": 128},
+            "Text": {"font": "hud", "size": 26, "color": [210, 225, 255, 255]},
+            "BoundText": {"format": "{console.line2}"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 40, "y": 166},
+            "Text": {"font": "hud", "size": 26, "color": [210, 225, 255, 255]},
+            "BoundText": {"format": "{console.line3}"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 40, "y": 204},
+            "Text": {"font": "hud", "size": 26, "color": [210, 225, 255, 255]},
+            "BoundText": {"format": "{console.line4}"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 40, "y": 242},
+            "Text": {"font": "hud", "size": 26, "color": [210, 225, 255, 255]},
+            "BoundText": {"format": "{console.line5}"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 40, "y": 280},
+            "Text": {"font": "hud", "size": 26, "color": [210, 225, 255, 255]},
+            "BoundText": {"format": "{console.line6}"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 40, "y": 318},
+            "Text": {"font": "hud", "size": 26, "color": [210, 225, 255, 255]},
+            "BoundText": {"format": "{console.line7}"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 30, "y": 368},
+            "RectShape": {"width": 1860, "height": 58, "color": [20, 30, 70, 255]},
+            "Text": {"font": "hud", "size": 28, "color": [255, 255, 255, 255], "offsetX": 16, "offsetY": 13},
+            "TextField": {
+              "name": "console",
+              "maxLength": 120,
+              "placeholder": "> COMMAND",
+              "width": 1860,
+              "height": 58
+            },
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        }
+      ]
+    },
+    "game": {
+      "escapeAction": "pause",
+      "anyKey": {"key": "world.phase", "value": "credits", "action": "restart_game"},
+      "systems": [
+        {"system": "Parallax", "boostKey": "world.phase", "boostValue": "clear", "boost": 6},
+        "TiltAnimation",
+        "SpriteAnimation",
+        "DeathEffect",
+        "PlayerLabel",
+        "Anchor",
+        "StatusText",
+        "TextField",
+        "Pointer",
+        "FocusNavigation",
+        "ButtonStyle",
+        "BoundText",
+        "Visibility",
+        "ProgressBar",
+        "Fade",
+        "Movement",
+        "Particles",
+        "Lifetime",
+        "HitFlash",
+        "Music",
+        {"system": "Shake", "key": "world.shake", "strength": 1.0},
+        "Audio",
+        "Cleanup"
+      ],
+      "entities": [
+        {"prefab": "hud_line", "components": {"MusicWhen": {"key": "world.music", "value": "boss", "music": "boss"}}},
+        {"prefab": "hud_line", "components": {"MusicWhen": {"key": "world.music", "value": "stage1", "music": "stage1"}}},
+        {"prefab": "hud_line", "components": {"MusicWhen": {"key": "world.music", "value": "stage2", "music": "stage2"}}},
+        {"prefab": "hud_line", "components": {"MusicWhen": {"key": "world.music", "value": "stage3", "music": "stage3"}}},
+        {"prefab": "hud_line", "components": {"MusicWhen": {"key": "world.music", "value": "boss3", "music": "boss3"}}},
+        {"prefab": "hud_line", "components": {"MusicWhen": {"key": "world.music", "value": "fin", "music": "fin"}}},
+        {
+          "prefab": "hud_line",
+          "components": {"MusicWhen": {"key": "world.music", "value": "victory", "music": "victory"}}
+        },
+        {"prefab": "hud_line", "components": {"MusicWhen": {"key": "world.music", "value": "versus", "music": "boss"}}},
+        {"prefab": "stage_color", "components": {"RectShape": {"width": 1920, "height": 1080, "color": [92, 74, 60, 255]}, "FadeWhen": {"key": "world.stage", "value": "1", "seconds": 1.5}}},
+        {"prefab": "stage_backdrop", "components": {"Transform": {"x": 0, "y": 0}, "Sprite": {"texture": "bg_paradise", "frame": [0, 0, 1920, 1080]}, "FadeWhen": {"key": "world.stage", "value": "1", "seconds": 1.5}}},
+        {"prefab": "stage_backdrop", "components": {"Transform": {"x": 1920, "y": 0}, "Sprite": {"texture": "bg_paradise", "frame": [0, 0, 1920, 1080]}, "FadeWhen": {"key": "world.stage", "value": "1", "seconds": 1.5}}},
+        {"prefab": "stage_color", "components": {"RectShape": {"width": 1920, "height": 1080, "color": [10, 11, 18, 255]}, "FadeWhen": {"key": "world.stage", "value": "2", "seconds": 1.5}}},
+        {"prefab": "stage_backdrop", "components": {"Transform": {"x": 0, "y": 0}, "Sprite": {"texture": "bg_interior", "frame": [0, 0, 1920, 1080]}, "FadeWhen": {"key": "world.stage", "value": "2", "seconds": 1.5}}},
+        {"prefab": "stage_backdrop", "components": {"Transform": {"x": 1920, "y": 0}, "Sprite": {"texture": "bg_interior", "frame": [0, 0, 1920, 1080]}, "FadeWhen": {"key": "world.stage", "value": "2", "seconds": 1.5}}},
+        {"prefab": "stage_color", "components": {"RectShape": {"width": 1920, "height": 1080, "color": [26, 4, 3, 255]}, "FadeWhen": {"key": "world.stage", "value": "3", "seconds": 1.5}}},
+        {"prefab": "stage_backdrop", "components": {"Transform": {"x": 0, "y": 0}, "Sprite": {"texture": "bg_hell", "frame": [0, 0, 1920, 1080]}, "FadeWhen": {"key": "world.stage", "value": "3", "seconds": 1.5}}},
+        {"prefab": "stage_backdrop", "components": {"Transform": {"x": 1920, "y": 0}, "Sprite": {"texture": "bg_hell", "frame": [0, 0, 1920, 1080]}, "FadeWhen": {"key": "world.stage", "value": "3", "seconds": 1.5}}},
+        {"prefab": "star_far", "count": 120, "scatter": true},
+        {"prefab": "star_mid", "count": 60, "scatter": true},
+        {"prefab": "star_near", "count": 25, "scatter": true},
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 12, "y": 4},
+            "Sprite": {"texture": "ui_hud", "frame": [0, 0, 440, 122], "scale": 1},
+            "VisibleWhen": {"key": "player0.present", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 472, "y": 4},
+            "Sprite": {"texture": "ui_hud", "frame": [0, 0, 440, 122], "scale": 1},
+            "VisibleWhen": {"key": "player1.present", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 932, "y": 4},
+            "Sprite": {"texture": "ui_hud", "frame": [0, 0, 440, 122], "scale": 1},
+            "VisibleWhen": {"key": "player2.present", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 1392, "y": 4},
+            "Sprite": {"texture": "ui_hud", "frame": [0, 0, 440, 122], "scale": 1},
+            "VisibleWhen": {"key": "player3.present", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 24, "y": 12},
+            "Text": {"font": "hud", "size": 28, "color": [80, 200, 255, 255]},
+            "StatusText": {"format": "P{slot}  SCORE {score}", "slot": 0},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 24, "y": 52},
+            "RectShape": {"width": 300, "height": 14, "color": [40, 40, 60, 220]},
+            "VisibleWhen": {"key": "player0.present", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 24, "y": 52},
+            "RectShape": {"width": 300, "height": 14, "color": [80, 200, 255, 255]},
+            "ProgressBar": {"key": "player0.health", "width": 300},
+            "VisibleWhen": {"key": "player0.alive", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 20, "y": 48},
+            "Sprite": {"texture": "ui_hud", "frame": [0, 122, 308, 22], "scale": 1},
+            "VisibleWhen": {"key": "player0.present", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 484, "y": 12},
+            "Text": {"font": "hud", "size": 28, "color": [255, 90, 200, 255]},
+            "StatusText": {"format": "P{slot}  SCORE {score}", "slot": 1},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 484, "y": 52},
+            "RectShape": {"width": 300, "height": 14, "color": [40, 40, 60, 220]},
+            "VisibleWhen": {"key": "player1.present", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 484, "y": 52},
+            "RectShape": {"width": 300, "height": 14, "color": [255, 90, 200, 255]},
+            "ProgressBar": {"key": "player1.health", "width": 300},
+            "VisibleWhen": {"key": "player1.alive", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 480, "y": 48},
+            "Sprite": {"texture": "ui_hud", "frame": [0, 122, 308, 22], "scale": 1},
+            "VisibleWhen": {"key": "player1.present", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 944, "y": 12},
+            "Text": {"font": "hud", "size": 28, "color": [120, 255, 120, 255]},
+            "StatusText": {"format": "P{slot}  SCORE {score}", "slot": 2},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 944, "y": 52},
+            "RectShape": {"width": 300, "height": 14, "color": [40, 40, 60, 220]},
+            "VisibleWhen": {"key": "player2.present", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 944, "y": 52},
+            "RectShape": {"width": 300, "height": 14, "color": [120, 255, 120, 255]},
+            "ProgressBar": {"key": "player2.health", "width": 300},
+            "VisibleWhen": {"key": "player2.alive", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 940, "y": 48},
+            "Sprite": {"texture": "ui_hud", "frame": [0, 122, 308, 22], "scale": 1},
+            "VisibleWhen": {"key": "player2.present", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 1404, "y": 12},
+            "Text": {"font": "hud", "size": 28, "color": [255, 170, 60, 255]},
+            "StatusText": {"format": "P{slot}  SCORE {score}", "slot": 3},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 1404, "y": 52},
+            "RectShape": {"width": 300, "height": 14, "color": [40, 40, 60, 220]},
+            "VisibleWhen": {"key": "player3.present", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 1404, "y": 52},
+            "RectShape": {"width": 300, "height": 14, "color": [255, 170, 60, 255]},
+            "ProgressBar": {"key": "player3.health", "width": 300},
+            "VisibleWhen": {"key": "player3.alive", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 1400, "y": 48},
+            "Sprite": {"texture": "ui_hud", "frame": [0, 122, 308, 22], "scale": 1},
+            "VisibleWhen": {"key": "player3.present", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 660, "y": 1010},
+            "Text": {"font": "hud", "size": 24, "color": [180, 180, 210, 255]},
+            "BoundText": {"format": "STAGE {world.stage}"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.mode", "value": "COOP"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 660, "y": 1044},
+            "RectShape": {"width": 600, "height": 14, "color": [40, 40, 60, 220]},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.mode", "value": "COOP"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 660, "y": 1044},
+            "RectShape": {"width": 600, "height": 14, "color": [80, 200, 255, 255]},
+            "ProgressBar": {"key": "world.progress", "width": 600, "max": 100},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.mode", "value": "COOP"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 656, "y": 1040},
+            "Sprite": {"texture": "ui_hud", "frame": [0, 144, 608, 22], "scale": 1},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.mode", "value": "COOP"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 460, "y": 96},
+            "Text": {"font": "hud", "size": 28, "color": [255, 90, 90, 255], "content": "BOSS"},
+            "VisibleWhen": {"key": "world.phase", "value": "boss"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 460, "y": 134},
+            "RectShape": {"width": 1000, "height": 20, "color": [60, 20, 20, 220]},
+            "VisibleWhen": {"key": "world.phase", "value": "boss"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 460, "y": 134},
+            "RectShape": {"width": 1000, "height": 20, "color": [255, 70, 70, 255]},
+            "ProgressBar": {"key": "world.bossHealth", "width": 1000, "max": 1000},
+            "VisibleWhen": {"key": "world.phase", "value": "boss"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 456, "y": 130},
+            "Sprite": {"texture": "ui_hud", "frame": [0, 166, 1008, 28], "scale": 1},
+            "VisibleWhen": {"key": "world.phase", "value": "boss"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 0, "y": 0},
+            "RectShape": {"width": 1920, "height": 1080, "color": [0, 0, 0, 0]},
+            "FadeWhen": {"key": "world.phase", "value": "victory", "seconds": 1.0},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 0, "y": 0},
+            "RectShape": {"width": 1920, "height": 1080, "color": [255, 250, 230, 0]},
+            "FadeWhen": {"key": "world.bomb", "value": "FLASH", "seconds": 0.25},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 1290, "y": 1036},
+            "RectShape": {"width": 110, "height": 30, "color": [255, 200, 60, 235]},
+            "Text": {
+              "font": "hud",
+              "size": 20,
+              "color": [30, 10, 0, 255],
+              "content": "BOMB",
+              "offsetX": 26,
+              "offsetY": 4
+            },
+            "VisibleWhen": {
+              "key": "world.bomb",
+              "value": "READY",
+              "and": [{"key": "game.phase", "value": "playing"}, {"key": "world.mode", "value": "COOP"}]
+            },
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 1290, "y": 1036},
+            "RectShape": {"width": 110, "height": 30, "color": [30, 30, 48, 220]},
+            "Text": {
+              "font": "hud",
+              "size": 20,
+              "color": [110, 110, 140, 255],
+              "content": "BOMB",
+              "offsetX": 26,
+              "offsetY": 4
+            },
+            "VisibleWhen": {
+              "key": "world.bomb",
+              "value": "USED",
+              "and": [{"key": "game.phase", "value": "playing"}, {"key": "world.mode", "value": "COOP"}]
+            },
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 798, "y": 380},
+            "Text": {"font": "hud", "size": 110, "color": [255, 220, 80, 255], "content": "VICTORY"},
+            "VisibleWhen": {"key": "world.phase", "value": "victory"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 620, "y": 590},
+            "RectShape": {"width": 680, "height": 330, "color": [5, 8, 25, 225]},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.phase", "value": "victory"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 660, "y": 620},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 0, 600, 80], "scale": 1},
+            "Text": {
+              "font": "hud",
+              "size": 36,
+              "color": [255, 255, 255, 255],
+              "content": "NEXT LEVEL",
+              "offsetX": 222,
+              "offsetY": 24
+            },
+            "Button": {
+              "action": "command:next",
+              "width": 600,
+              "height": 80,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 0, 600, 80],
+              "hoverFrame": [600, 0, 600, 80],
+              "pressedFrame": [1200, 0, 600, 80]
+            },
+            "Focusable": {"order": 0},
+            "Foreground": {},
+            "VisibleWhen": {
+              "key": "world.phase",
+              "value": "victory",
+              "and": [{"key": "room.isOwner", "value": "yes"}],
+              "unless": {"key": "world.stage", "value": "3"}
+            }
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 660, "y": 720},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 0, 600, 80], "scale": 1},
+            "Text": {
+              "font": "hud",
+              "size": 36,
+              "color": [255, 255, 255, 255],
+              "content": "RESTART",
+              "offsetX": 244,
+              "offsetY": 24
+            },
+            "Button": {
+              "action": "command:restart",
+              "width": 600,
+              "height": 80,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 0, 600, 80],
+              "hoverFrame": [600, 0, 600, 80],
+              "pressedFrame": [1200, 0, 600, 80]
+            },
+            "Focusable": {"order": 1},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.phase", "value": "victory", "and": [{"key": "room.isOwner", "value": "yes"}]}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 784, "y": 650},
+            "Text": {"font": "hud", "size": 32, "color": [180, 190, 230, 255], "content": "WAITING FOR THE ROOM OWNER"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.phase", "value": "victory", "and": [{"key": "room.isOwner", "value": "no"}]}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 660, "y": 820},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 0, 600, 80], "scale": 1},
+            "Text": {
+              "font": "hud",
+              "size": 36,
+              "color": [255, 255, 255, 255],
+              "content": "QUIT",
+              "offsetX": 270,
+              "offsetY": 24
+            },
+            "Button": {
+              "action": "leave_room",
+              "width": 600,
+              "height": 80,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 0, 600, 80],
+              "hoverFrame": [600, 0, 600, 80],
+              "pressedFrame": [1200, 0, 600, 80]
+            },
+            "Focusable": {"order": 2},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.phase", "value": "victory"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 744, "y": 380},
+            "Text": {"font": "hud", "size": 110, "color": [255, 255, 255, 255], "content": "GAME OVER"},
+            "VisibleWhen": {"key": "world.phase", "value": "defeat"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 620, "y": 620},
+            "RectShape": {"width": 680, "height": 280, "color": [5, 8, 25, 225]},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.phase", "value": "defeat"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 660, "y": 670},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 0, 600, 80], "scale": 1},
+            "Text": {
+              "font": "hud",
+              "size": 36,
+              "color": [255, 255, 255, 255],
+              "content": "PLAY AGAIN",
+              "offsetX": 225,
+              "offsetY": 24
+            },
+            "Button": {
+              "action": "command:restart",
+              "width": 600,
+              "height": 80,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 0, 600, 80],
+              "hoverFrame": [600, 0, 600, 80],
+              "pressedFrame": [1200, 0, 600, 80]
+            },
+            "Focusable": {"order": 0},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.phase", "value": "defeat", "and": [{"key": "room.isOwner", "value": "yes"}]}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 784, "y": 690},
+            "Text": {"font": "hud", "size": 32, "color": [180, 190, 230, 255], "content": "WAITING FOR THE ROOM OWNER"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.phase", "value": "defeat", "and": [{"key": "room.isOwner", "value": "no"}]}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 660, "y": 790},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 0, 600, 80], "scale": 1},
+            "Text": {
+              "font": "hud",
+              "size": 36,
+              "color": [255, 255, 255, 255],
+              "content": "QUIT",
+              "offsetX": 270,
+              "offsetY": 24
+            },
+            "Button": {
+              "action": "leave_room",
+              "width": 600,
+              "height": 80,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 0, 600, 80],
+              "hoverFrame": [600, 0, 600, 80],
+              "pressedFrame": [1200, 0, 600, 80]
+            },
+            "Focusable": {"order": 1},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.phase", "value": "defeat"}
+          }
+        },
+        {"prefab": "hud_line", "components": {"Transform": {"x": 24, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [30, 30, 48, 220]}, "Text": {"font": "hud", "size": 18, "color": [110, 110, 140, 255], "content": "SINGLE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player0.weapon", "value": "SINGLE", "and": [{"key": "player0.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 24, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [80, 200, 255, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "DOUBLE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player0.weapon", "value": "DOUBLE", "and": [{"key": "player0.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 24, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [80, 200, 255, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "SPREAD", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player0.weapon", "value": "SPREAD", "and": [{"key": "player0.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 160, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [30, 30, 48, 220]}, "Text": {"font": "hud", "size": 18, "color": [110, 110, 140, 255], "content": "FORCE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player0.force", "value": "", "and": [{"key": "player0.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 160, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [80, 200, 255, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "FORCE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player0.force", "value": "FORCE", "and": [{"key": "player0.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 160, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [80, 200, 255, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "FORCE >>", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player0.force", "value": "FORCE OUT", "and": [{"key": "player0.present", "value": "yes"}]}, "Foreground": {}}},
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 160, "y": 84},
+            "RectShape": {"width": 128, "height": 28, "color": [80, 200, 255, 235]},
+            "Text": {
+              "font": "hud",
+              "size": 18,
+              "color": [10, 10, 30, 255],
+              "content": "<< FORCE",
+              "offsetX": 10,
+              "offsetY": 5
+            },
+            "VisibleWhen": {
+              "key": "player0.force",
+              "value": "FORCE BACK",
+              "and": [{"key": "player0.present", "value": "yes"}]
+            },
+            "Foreground": {}
+          }
+        },
+        {"prefab": "hud_line", "components": {"Transform": {"x": 296, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [30, 30, 48, 220]}, "Text": {"font": "hud", "size": 18, "color": [110, 110, 140, 255], "content": "DRONE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player0.drone", "value": "", "and": [{"key": "player0.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 296, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [80, 200, 255, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "DRONE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player0.drone", "value": "DRONE", "and": [{"key": "player0.present", "value": "yes"}]}, "Foreground": {}}},
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 24, "y": 70},
+            "RectShape": {"width": 300, "height": 6, "color": [255, 255, 255, 220]},
+            "ProgressBar": {"key": "player0.charge", "width": 300, "max": 100},
+            "VisibleWhen": {"key": "player0.alive", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {"prefab": "hud_line", "components": {"Transform": {"x": 484, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [30, 30, 48, 220]}, "Text": {"font": "hud", "size": 18, "color": [110, 110, 140, 255], "content": "SINGLE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player1.weapon", "value": "SINGLE", "and": [{"key": "player1.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 484, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [255, 90, 200, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "DOUBLE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player1.weapon", "value": "DOUBLE", "and": [{"key": "player1.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 484, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [255, 90, 200, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "SPREAD", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player1.weapon", "value": "SPREAD", "and": [{"key": "player1.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 620, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [30, 30, 48, 220]}, "Text": {"font": "hud", "size": 18, "color": [110, 110, 140, 255], "content": "FORCE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player1.force", "value": "", "and": [{"key": "player1.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 620, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [255, 90, 200, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "FORCE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player1.force", "value": "FORCE", "and": [{"key": "player1.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 620, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [255, 90, 200, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "FORCE >>", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player1.force", "value": "FORCE OUT", "and": [{"key": "player1.present", "value": "yes"}]}, "Foreground": {}}},
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 620, "y": 84},
+            "RectShape": {"width": 128, "height": 28, "color": [255, 90, 200, 235]},
+            "Text": {
+              "font": "hud",
+              "size": 18,
+              "color": [10, 10, 30, 255],
+              "content": "<< FORCE",
+              "offsetX": 10,
+              "offsetY": 5
+            },
+            "VisibleWhen": {
+              "key": "player1.force",
+              "value": "FORCE BACK",
+              "and": [{"key": "player1.present", "value": "yes"}]
+            },
+            "Foreground": {}
+          }
+        },
+        {"prefab": "hud_line", "components": {"Transform": {"x": 756, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [30, 30, 48, 220]}, "Text": {"font": "hud", "size": 18, "color": [110, 110, 140, 255], "content": "DRONE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player1.drone", "value": "", "and": [{"key": "player1.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 756, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [255, 90, 200, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "DRONE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player1.drone", "value": "DRONE", "and": [{"key": "player1.present", "value": "yes"}]}, "Foreground": {}}},
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 484, "y": 70},
+            "RectShape": {"width": 300, "height": 6, "color": [255, 255, 255, 220]},
+            "ProgressBar": {"key": "player1.charge", "width": 300, "max": 100},
+            "VisibleWhen": {"key": "player1.alive", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {"prefab": "hud_line", "components": {"Transform": {"x": 944, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [30, 30, 48, 220]}, "Text": {"font": "hud", "size": 18, "color": [110, 110, 140, 255], "content": "SINGLE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player2.weapon", "value": "SINGLE", "and": [{"key": "player2.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 944, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [120, 255, 120, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "DOUBLE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player2.weapon", "value": "DOUBLE", "and": [{"key": "player2.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 944, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [120, 255, 120, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "SPREAD", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player2.weapon", "value": "SPREAD", "and": [{"key": "player2.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 1080, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [30, 30, 48, 220]}, "Text": {"font": "hud", "size": 18, "color": [110, 110, 140, 255], "content": "FORCE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player2.force", "value": "", "and": [{"key": "player2.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 1080, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [120, 255, 120, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "FORCE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player2.force", "value": "FORCE", "and": [{"key": "player2.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 1080, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [120, 255, 120, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "FORCE >>", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player2.force", "value": "FORCE OUT", "and": [{"key": "player2.present", "value": "yes"}]}, "Foreground": {}}},
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 1080, "y": 84},
+            "RectShape": {"width": 128, "height": 28, "color": [120, 255, 120, 235]},
+            "Text": {
+              "font": "hud",
+              "size": 18,
+              "color": [10, 10, 30, 255],
+              "content": "<< FORCE",
+              "offsetX": 10,
+              "offsetY": 5
+            },
+            "VisibleWhen": {
+              "key": "player2.force",
+              "value": "FORCE BACK",
+              "and": [{"key": "player2.present", "value": "yes"}]
+            },
+            "Foreground": {}
+          }
+        },
+        {"prefab": "hud_line", "components": {"Transform": {"x": 1216, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [30, 30, 48, 220]}, "Text": {"font": "hud", "size": 18, "color": [110, 110, 140, 255], "content": "DRONE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player2.drone", "value": "", "and": [{"key": "player2.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 1216, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [120, 255, 120, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "DRONE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player2.drone", "value": "DRONE", "and": [{"key": "player2.present", "value": "yes"}]}, "Foreground": {}}},
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 944, "y": 70},
+            "RectShape": {"width": 300, "height": 6, "color": [255, 255, 255, 220]},
+            "ProgressBar": {"key": "player2.charge", "width": 300, "max": 100},
+            "VisibleWhen": {"key": "player2.alive", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {"prefab": "hud_line", "components": {"Transform": {"x": 1404, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [30, 30, 48, 220]}, "Text": {"font": "hud", "size": 18, "color": [110, 110, 140, 255], "content": "SINGLE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player3.weapon", "value": "SINGLE", "and": [{"key": "player3.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 1404, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [255, 170, 60, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "DOUBLE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player3.weapon", "value": "DOUBLE", "and": [{"key": "player3.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 1404, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [255, 170, 60, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "SPREAD", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player3.weapon", "value": "SPREAD", "and": [{"key": "player3.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 1540, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [30, 30, 48, 220]}, "Text": {"font": "hud", "size": 18, "color": [110, 110, 140, 255], "content": "FORCE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player3.force", "value": "", "and": [{"key": "player3.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 1540, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [255, 170, 60, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "FORCE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player3.force", "value": "FORCE", "and": [{"key": "player3.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 1540, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [255, 170, 60, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "FORCE >>", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player3.force", "value": "FORCE OUT", "and": [{"key": "player3.present", "value": "yes"}]}, "Foreground": {}}},
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 1540, "y": 84},
+            "RectShape": {"width": 128, "height": 28, "color": [255, 170, 60, 235]},
+            "Text": {
+              "font": "hud",
+              "size": 18,
+              "color": [10, 10, 30, 255],
+              "content": "<< FORCE",
+              "offsetX": 10,
+              "offsetY": 5
+            },
+            "VisibleWhen": {
+              "key": "player3.force",
+              "value": "FORCE BACK",
+              "and": [{"key": "player3.present", "value": "yes"}]
+            },
+            "Foreground": {}
+          }
+        },
+        {"prefab": "hud_line", "components": {"Transform": {"x": 1676, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [30, 30, 48, 220]}, "Text": {"font": "hud", "size": 18, "color": [110, 110, 140, 255], "content": "DRONE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player3.drone", "value": "", "and": [{"key": "player3.present", "value": "yes"}]}, "Foreground": {}}},
+        {"prefab": "hud_line", "components": {"Transform": {"x": 1676, "y": 84}, "RectShape": {"width": 128, "height": 28, "color": [255, 170, 60, 235]}, "Text": {"font": "hud", "size": 18, "color": [10, 10, 30, 255], "content": "DRONE", "offsetX": 10, "offsetY": 5}, "VisibleWhen": {"key": "player3.drone", "value": "DRONE", "and": [{"key": "player3.present", "value": "yes"}]}, "Foreground": {}}},
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 1404, "y": 70},
+            "RectShape": {"width": 300, "height": 6, "color": [255, 255, 255, 220]},
+            "ProgressBar": {"key": "player3.charge", "width": 300, "max": 100},
+            "VisibleWhen": {"key": "player3.alive", "value": "yes"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 20, "y": 800},
+            "RectShape": {"width": 440, "height": 260, "color": [0, 0, 0, 170]},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 810},
+            "Text": {"font": "hud", "size": 24, "color": [255, 255, 255, 255]},
+            "BoundText": {"format": "FPS {debug.fps}    PING {debug.ping} MS"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 844},
+            "Text": {"font": "hud", "size": 24, "color": [255, 255, 255, 255]},
+            "BoundText": {"format": "ENTITIES {debug.entities}    MEMORY {debug.memory} MB"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 878},
+            "Text": {"font": "hud", "size": 24, "color": [255, 255, 255, 255]},
+            "BoundText": {"format": "IN {debug.in} KB/S    OUT {debug.out} KB/S"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 912},
+            "Text": {"font": "hud", "size": 24, "color": [170, 170, 190, 255]},
+            "BoundText": {"format": "PING HISTORY"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 34, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping0", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 47, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping1", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 60, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping2", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 73, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping3", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 86, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping4", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 99, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping5", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 112, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping6", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 125, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping7", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 138, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping8", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 151, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping9", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 164, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping10", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 177, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping11", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 190, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping12", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 203, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping13", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 216, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping14", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 229, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping15", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 242, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping16", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 255, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping17", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 268, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping18", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 281, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping19", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 294, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping20", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 307, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping21", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 320, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping22", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 333, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping23", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 346, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping24", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 359, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping25", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 372, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping26", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 385, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping27", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 398, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping28", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 411, "y": 950},
+            "RectShape": {"width": 10, "height": 0, "color": [120, 255, 140, 255]},
+            "ProgressBar": {"key": "debug.ping29", "width": 100, "max": 200, "vertical": true},
+            "Foreground": {},
+            "VisibleWhen": {"key": "debug.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 0, "y": 0},
+            "RectShape": {"width": 1920, "height": 440, "color": [6, 10, 30, 245]},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 0, "y": 440},
+            "RectShape": {"width": 1920, "height": 4, "color": [80, 200, 255, 255]},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 40, "y": 14},
+            "Text": {
+              "font": "hud",
+              "size": 22,
+              "color": [80, 200, 255, 255],
+              "content": "CONSOLE   -   F1 TO CLOSE   -   TYPE help"
+            },
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 40, "y": 52},
+            "Text": {"font": "hud", "size": 26, "color": [210, 225, 255, 255]},
+            "BoundText": {"format": "{console.line0}"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 40, "y": 90},
+            "Text": {"font": "hud", "size": 26, "color": [210, 225, 255, 255]},
+            "BoundText": {"format": "{console.line1}"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 40, "y": 128},
+            "Text": {"font": "hud", "size": 26, "color": [210, 225, 255, 255]},
+            "BoundText": {"format": "{console.line2}"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 40, "y": 166},
+            "Text": {"font": "hud", "size": 26, "color": [210, 225, 255, 255]},
+            "BoundText": {"format": "{console.line3}"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 40, "y": 204},
+            "Text": {"font": "hud", "size": 26, "color": [210, 225, 255, 255]},
+            "BoundText": {"format": "{console.line4}"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 40, "y": 242},
+            "Text": {"font": "hud", "size": 26, "color": [210, 225, 255, 255]},
+            "BoundText": {"format": "{console.line5}"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 40, "y": 280},
+            "Text": {"font": "hud", "size": 26, "color": [210, 225, 255, 255]},
+            "BoundText": {"format": "{console.line6}"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 40, "y": 318},
+            "Text": {"font": "hud", "size": 26, "color": [210, 225, 255, 255]},
+            "BoundText": {"format": "{console.line7}"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 30, "y": 368},
+            "RectShape": {"width": 1860, "height": 58, "color": [20, 30, 70, 255]},
+            "Text": {"font": "hud", "size": 28, "color": [255, 255, 255, 255], "offsetX": 16, "offsetY": 13},
+            "TextField": {
+              "name": "console",
+              "maxLength": 120,
+              "placeholder": "> COMMAND",
+              "width": 1860,
+              "height": 58
+            },
+            "Foreground": {},
+            "VisibleWhen": {"key": "console.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 660, "y": 190},
+            "Text": {"font": "hud", "size": 40, "color": [255, 200, 80, 255]},
+            "BoundText": {"format": "{game.notice}"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 0, "y": 0},
+            "RectShape": {"width": 1920, "height": 1080, "color": [0, 0, 0, 170]},
+            "Foreground": {},
+            "VisibleWhen": {"key": "pause.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 660, "y": 330},
+            "RectShape": {"width": 600, "height": 510, "color": [10, 15, 40, 245]},
+            "Foreground": {},
+            "VisibleWhen": {"key": "pause.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 860, "y": 360},
+            "Text": {"font": "hud", "size": 56, "color": [80, 200, 255, 255], "content": "PAUSE"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "pause.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 710, "y": 470},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 80, 500, 80], "scale": 1},
+            "Text": {
+              "font": "hud",
+              "size": 40,
+              "color": [255, 255, 255, 255],
+              "content": "CONTINUE",
+              "offsetX": 180,
+              "offsetY": 22
+            },
+            "Button": {
+              "action": "resume",
+              "width": 500,
+              "height": 80,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 80, 500, 80],
+              "hoverFrame": [500, 80, 500, 80],
+              "pressedFrame": [1000, 80, 500, 80]
+            },
+            "Focusable": {"order": 0},
+            "Foreground": {},
+            "VisibleWhen": {"key": "pause.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 710, "y": 580},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 80, 500, 80], "scale": 1},
+            "Text": {
+              "font": "hud",
+              "size": 40,
+              "color": [255, 255, 255, 255],
+              "content": "SETTINGS",
+              "offsetX": 180,
+              "offsetY": 22
+            },
+            "Button": {
+              "action": "settings",
+              "width": 500,
+              "height": 80,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 80, 500, 80],
+              "hoverFrame": [500, 80, 500, 80],
+              "pressedFrame": [1000, 80, 500, 80]
+            },
+            "Focusable": {"order": 1},
+            "Foreground": {},
+            "VisibleWhen": {"key": "pause.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 710, "y": 690},
+            "Sprite": {"texture": "ui_buttons", "frame": [0, 80, 500, 80], "scale": 1},
+            "Text": {
+              "font": "hud",
+              "size": 40,
+              "color": [255, 255, 255, 255],
+              "content": "QUIT",
+              "offsetX": 216,
+              "offsetY": 22
+            },
+            "Button": {
+              "action": "leave_room",
+              "width": 500,
+              "height": 80,
+              "hoverSound": "hover",
+              "clickSound": "click",
+              "normalFrame": [0, 80, 500, 80],
+              "hoverFrame": [500, 80, 500, 80],
+              "pressedFrame": [1000, 80, 500, 80]
+            },
+            "Focusable": {"order": 2},
+            "Foreground": {},
+            "VisibleWhen": {"key": "pause.visible", "value": "yes"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 0, "y": 0},
+            "RectShape": {"width": 1920, "height": 1080, "color": [255, 255, 255, 255]},
+            "FadeWhen": {"key": "world.whiteout", "value": "1", "seconds": 1.5},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 805, "y": 430},
+            "Text": {"font": "hud", "size": 260, "color": [20, 20, 40, 255], "content": "FIN"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.phase", "value": "fin"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 0, "y": 0},
+            "RectShape": {"width": 1920, "height": 1080, "color": [0, 0, 0, 255]},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.phase", "value": "credits"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 728, "y": 260},
+            "Text": {"font": "hud", "size": 64, "color": [80, 200, 255, 255], "content": "MERCI D'AVOIR JOUE"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.phase", "value": "credits"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 891, "y": 420},
+            "Text": {"font": "hud", "size": 36, "color": [140, 160, 210, 255], "content": "A GAME BY"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.phase", "value": "credits"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 826, "y": 490},
+            "Text": {"font": "hud", "size": 48, "color": [235, 245, 255, 255], "content": "Erraji Mohamed"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.phase", "value": "credits"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 837, "y": 560},
+            "Text": {"font": "hud", "size": 48, "color": [235, 245, 255, 255], "content": "Milo Bousquet"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.phase", "value": "credits"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 837, "y": 630},
+            "Text": {"font": "hud", "size": 48, "color": [235, 245, 255, 255], "content": "Nathan Muzay"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.phase", "value": "credits"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 837, "y": 700},
+            "Text": {"font": "hud", "size": 48, "color": [235, 245, 255, 255], "content": "Erwan Ababsa"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.phase", "value": "credits"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 885, "y": 900},
+            "Text": {"font": "hud", "size": 28, "color": [150, 150, 180, 255], "content": "PRESS ANY KEY"},
+            "Foreground": {},
+            "VisibleWhen": {"key": "world.phase", "value": "credits"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 958, "y": 0},
+            "RectShape": {"width": 4, "height": 1080, "color": [255, 255, 255, 70]},
+            "VisibleWhen": {"key": "world.mode", "value": "VERSUS"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 806, "y": 140},
+            "Text": {"font": "hud", "size": 64, "color": [255, 220, 80, 255]},
+            "BoundText": {"format": "P1  {world.winsP1} - {world.winsP2}  P2"},
+            "VisibleWhen": {"key": "world.mode", "value": "VERSUS"},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 610, "y": 470},
+            "Text": {"font": "hud", "size": 72, "color": [255, 255, 255, 255], "content": "WAITING FOR AN OPPONENT"},
+            "VisibleWhen": {"key": "world.duel", "value": "WAITING", "and": [{"key": "world.mode", "value": "VERSUS"}]},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 819, "y": 470},
+            "Text": {"font": "hud", "size": 96, "color": [255, 255, 255, 255]},
+            "BoundText": {"format": "ROUND {world.round}"},
+            "VisibleWhen": {"key": "world.duel", "value": "ROUND", "and": [{"key": "world.mode", "value": "VERSUS"}]},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 690, "y": 470},
+            "Text": {"font": "hud", "size": 96, "color": [80, 200, 255, 255], "content": "POINT PLAYER 1"},
+            "VisibleWhen": {
+              "key": "world.duel",
+              "value": "POINT",
+              "and": [{"key": "world.mode", "value": "VERSUS"}, {"key": "world.winner", "value": "1"}]
+            },
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 690, "y": 470},
+            "Text": {"font": "hud", "size": 96, "color": [255, 90, 200, 255], "content": "POINT PLAYER 2"},
+            "VisibleWhen": {
+              "key": "world.duel",
+              "value": "POINT",
+              "and": [{"key": "world.mode", "value": "VERSUS"}, {"key": "world.winner", "value": "2"}]
+            },
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 870, "y": 470},
+            "Text": {"font": "hud", "size": 96, "color": [255, 255, 255, 255], "content": "DRAW"},
+            "VisibleWhen": {
+              "key": "world.duel",
+              "value": "POINT",
+              "and": [{"key": "world.mode", "value": "VERSUS"}, {"key": "world.winner", "value": "0"}]
+            },
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 640, "y": 470},
+            "Text": {"font": "hud", "size": 110, "color": [255, 220, 80, 255]},
+            "BoundText": {"format": "PLAYER {world.winner} WINS !"},
+            "VisibleWhen": {"key": "world.duel", "value": "CHAMPION", "and": [{"key": "world.mode", "value": "VERSUS"}]},
+            "Foreground": {}
+          }
+        }
+      ]
+    },
+    "settings": {
+      "music": "title",
+      "escapeAction": "back",
+      "systems": ["Parallax", "Pointer", "FocusNavigation", "KeyBind", "SettingSlider", "BoundText", "Visibility", "ButtonStyle", "Audio", "Cleanup"],
+      "entities": [
+        {"prefab": "star_far", "count": 120, "scatter": true},
+        {"prefab": "star_mid", "count": 60, "scatter": true},
+        {"prefab": "star_near", "count": 25, "scatter": true},
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 760, "y": 70},
+            "Text": {"font": "hud", "size": 80, "color": [80, 200, 255, 255], "content": "SETTINGS"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 140, "y": 220},
+            "RectShape": {"width": 780, "height": 64, "color": [20, 30, 70, 230]},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "content": "MUSIC VOLUME", "offsetX": 24, "offsetY": 14},
+            "Button": {"action": "", "width": 780, "height": 64, "normal": [20, 30, 70, 230], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "Focusable": {"order": 0},
+            "SettingSlider": {"setting": "musicVolume", "min": 0, "max": 100, "step": 10}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 690, "y": 227},
+            "RectShape": {"width": 50, "height": 50, "color": [45, 60, 120, 240]},
+            "Text": {"font": "hud", "size": 34, "color": [255, 255, 255, 255], "content": "<", "offsetX": 15, "offsetY": 6},
+            "Button": {"action": "", "width": 50, "height": 50, "normal": [45, 60, 120, 240], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "SettingSlider": {"setting": "musicVolume", "min": 0, "max": 100, "step": 10, "direction": -1}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 758, "y": 234},
+            "Text": {"font": "hud", "size": 32, "color": [80, 200, 255, 255]},
+            "BoundText": {"format": "{setting.musicVolume}"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 850, "y": 227},
+            "RectShape": {"width": 50, "height": 50, "color": [45, 60, 120, 240]},
+            "Text": {"font": "hud", "size": 34, "color": [255, 255, 255, 255], "content": ">", "offsetX": 15, "offsetY": 6},
+            "Button": {"action": "", "width": 50, "height": 50, "normal": [45, 60, 120, 240], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "SettingSlider": {"setting": "musicVolume", "min": 0, "max": 100, "step": 10, "direction": 1}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 140, "y": 304},
+            "RectShape": {"width": 780, "height": 64, "color": [20, 30, 70, 230]},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "content": "SOUND VOLUME", "offsetX": 24, "offsetY": 14},
+            "Button": {"action": "", "width": 780, "height": 64, "normal": [20, 30, 70, 230], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "Focusable": {"order": 1},
+            "SettingSlider": {"setting": "soundVolume", "min": 0, "max": 100, "step": 10}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 690, "y": 311},
+            "RectShape": {"width": 50, "height": 50, "color": [45, 60, 120, 240]},
+            "Text": {"font": "hud", "size": 34, "color": [255, 255, 255, 255], "content": "<", "offsetX": 15, "offsetY": 6},
+            "Button": {"action": "", "width": 50, "height": 50, "normal": [45, 60, 120, 240], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "SettingSlider": {"setting": "soundVolume", "min": 0, "max": 100, "step": 10, "direction": -1}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 758, "y": 318},
+            "Text": {"font": "hud", "size": 32, "color": [80, 200, 255, 255]},
+            "BoundText": {"format": "{setting.soundVolume}"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 850, "y": 311},
+            "RectShape": {"width": 50, "height": 50, "color": [45, 60, 120, 240]},
+            "Text": {"font": "hud", "size": 34, "color": [255, 255, 255, 255], "content": ">", "offsetX": 15, "offsetY": 6},
+            "Button": {"action": "", "width": 50, "height": 50, "normal": [45, 60, 120, 240], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "SettingSlider": {"setting": "soundVolume", "min": 0, "max": 100, "step": 10, "direction": 1}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 140, "y": 388},
+            "RectShape": {"width": 780, "height": 64, "color": [20, 30, 70, 230]},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "content": "TEXT SIZE", "offsetX": 24, "offsetY": 14},
+            "Button": {"action": "", "width": 780, "height": 64, "normal": [20, 30, 70, 230], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "Focusable": {"order": 2},
+            "SettingSlider": {"setting": "textScale", "min": 0.8, "max": 1.3, "step": 0.1}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 690, "y": 395},
+            "RectShape": {"width": 50, "height": 50, "color": [45, 60, 120, 240]},
+            "Text": {"font": "hud", "size": 34, "color": [255, 255, 255, 255], "content": "<", "offsetX": 15, "offsetY": 6},
+            "Button": {"action": "", "width": 50, "height": 50, "normal": [45, 60, 120, 240], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "SettingSlider": {"setting": "textScale", "min": 0.8, "max": 1.3, "step": 0.1, "direction": -1}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 758, "y": 402},
+            "Text": {"font": "hud", "size": 32, "color": [80, 200, 255, 255]},
+            "BoundText": {"format": "{setting.textScale}"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 850, "y": 395},
+            "RectShape": {"width": 50, "height": 50, "color": [45, 60, 120, 240]},
+            "Text": {"font": "hud", "size": 34, "color": [255, 255, 255, 255], "content": ">", "offsetX": 15, "offsetY": 6},
+            "Button": {"action": "", "width": 50, "height": 50, "normal": [45, 60, 120, 240], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "SettingSlider": {"setting": "textScale", "min": 0.8, "max": 1.3, "step": 0.1, "direction": 1}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 140, "y": 472},
+            "RectShape": {"width": 780, "height": 64, "color": [20, 30, 70, 230]},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "content": "AUTO FIRE", "offsetX": 24, "offsetY": 14},
+            "Button": {"action": "", "width": 780, "height": 64, "normal": [20, 30, 70, 230], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "Focusable": {"order": 3},
+            "SettingSlider": {"setting": "toggleFire", "options": ["OFF", "ON"]}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 690, "y": 479},
+            "RectShape": {"width": 50, "height": 50, "color": [45, 60, 120, 240]},
+            "Text": {"font": "hud", "size": 34, "color": [255, 255, 255, 255], "content": "<", "offsetX": 15, "offsetY": 6},
+            "Button": {"action": "", "width": 50, "height": 50, "normal": [45, 60, 120, 240], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "SettingSlider": {"setting": "toggleFire", "options": ["OFF", "ON"], "direction": -1}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 758, "y": 486},
+            "Text": {"font": "hud", "size": 32, "color": [80, 200, 255, 255]},
+            "BoundText": {"format": "{setting.toggleFire}"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 850, "y": 479},
+            "RectShape": {"width": 50, "height": 50, "color": [45, 60, 120, 240]},
+            "Text": {"font": "hud", "size": 34, "color": [255, 255, 255, 255], "content": ">", "offsetX": 15, "offsetY": 6},
+            "Button": {"action": "", "width": 50, "height": 50, "normal": [45, 60, 120, 240], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "SettingSlider": {"setting": "toggleFire", "options": ["OFF", "ON"], "direction": 1}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 140, "y": 556},
+            "RectShape": {"width": 780, "height": 64, "color": [20, 30, 70, 230]},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "content": "PLAYER NUMBERS", "offsetX": 24, "offsetY": 14},
+            "Button": {"action": "", "width": 780, "height": 64, "normal": [20, 30, 70, 230], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "Focusable": {"order": 4},
+            "SettingSlider": {"setting": "showPlayerLabels", "options": ["ON", "OFF"]}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 690, "y": 563},
+            "RectShape": {"width": 50, "height": 50, "color": [45, 60, 120, 240]},
+            "Text": {"font": "hud", "size": 34, "color": [255, 255, 255, 255], "content": "<", "offsetX": 15, "offsetY": 6},
+            "Button": {"action": "", "width": 50, "height": 50, "normal": [45, 60, 120, 240], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "SettingSlider": {"setting": "showPlayerLabels", "options": ["ON", "OFF"], "direction": -1}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 758, "y": 570},
+            "Text": {"font": "hud", "size": 32, "color": [80, 200, 255, 255]},
+            "BoundText": {"format": "{setting.showPlayerLabels}"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 850, "y": 563},
+            "RectShape": {"width": 50, "height": 50, "color": [45, 60, 120, 240]},
+            "Text": {"font": "hud", "size": 34, "color": [255, 255, 255, 255], "content": ">", "offsetX": 15, "offsetY": 6},
+            "Button": {"action": "", "width": 50, "height": 50, "normal": [45, 60, 120, 240], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "SettingSlider": {"setting": "showPlayerLabels", "options": ["ON", "OFF"], "direction": 1}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1000, "y": 220},
+            "RectShape": {"width": 780, "height": 64, "color": [20, 30, 70, 230]},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "content": "MOVE UP", "offsetX": 24, "offsetY": 14},
+            "Button": {"action": "", "width": 780, "height": 64, "normal": [20, 30, 70, 230], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "Focusable": {"order": 5},
+            "KeyBind": {"action": "up", "prompt": "PRESS A KEY"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1480, "y": 234},
+            "Text": {"font": "hud", "size": 32, "color": [80, 200, 255, 255]},
+            "BoundText": {"format": "[ {setting.key.up} ]"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1000, "y": 304},
+            "RectShape": {"width": 780, "height": 64, "color": [20, 30, 70, 230]},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "content": "MOVE DOWN", "offsetX": 24, "offsetY": 14},
+            "Button": {"action": "", "width": 780, "height": 64, "normal": [20, 30, 70, 230], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "Focusable": {"order": 6},
+            "KeyBind": {"action": "down", "prompt": "PRESS A KEY"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1480, "y": 318},
+            "Text": {"font": "hud", "size": 32, "color": [80, 200, 255, 255]},
+            "BoundText": {"format": "[ {setting.key.down} ]"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1000, "y": 388},
+            "RectShape": {"width": 780, "height": 64, "color": [20, 30, 70, 230]},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "content": "MOVE LEFT", "offsetX": 24, "offsetY": 14},
+            "Button": {"action": "", "width": 780, "height": 64, "normal": [20, 30, 70, 230], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "Focusable": {"order": 7},
+            "KeyBind": {"action": "left", "prompt": "PRESS A KEY"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1480, "y": 402},
+            "Text": {"font": "hud", "size": 32, "color": [80, 200, 255, 255]},
+            "BoundText": {"format": "[ {setting.key.left} ]"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1000, "y": 472},
+            "RectShape": {"width": 780, "height": 64, "color": [20, 30, 70, 230]},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "content": "MOVE RIGHT", "offsetX": 24, "offsetY": 14},
+            "Button": {"action": "", "width": 780, "height": 64, "normal": [20, 30, 70, 230], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "Focusable": {"order": 8},
+            "KeyBind": {"action": "right", "prompt": "PRESS A KEY"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1480, "y": 486},
+            "Text": {"font": "hud", "size": 32, "color": [80, 200, 255, 255]},
+            "BoundText": {"format": "[ {setting.key.right} ]"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1000, "y": 556},
+            "RectShape": {"width": 780, "height": 64, "color": [20, 30, 70, 230]},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "content": "FIRE", "offsetX": 24, "offsetY": 14},
+            "Button": {"action": "", "width": 780, "height": 64, "normal": [20, 30, 70, 230], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "Focusable": {"order": 9},
+            "KeyBind": {"action": "fire", "prompt": "PRESS A KEY"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1480, "y": 570},
+            "Text": {"font": "hud", "size": 32, "color": [80, 200, 255, 255]},
+            "BoundText": {"format": "[ {setting.key.fire} ]"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1000, "y": 640},
+            "RectShape": {"width": 780, "height": 64, "color": [20, 30, 70, 230]},
+            "Text": {"font": "hud", "size": 32, "color": [255, 255, 255, 255], "content": "FORCE", "offsetX": 24, "offsetY": 14},
+            "Button": {"action": "", "width": 780, "height": 64, "normal": [20, 30, 70, 230], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "clickSound": "click"},
+            "Focusable": {"order": 10},
+            "KeyBind": {"action": "action", "prompt": "PRESS A KEY"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 1480, "y": 654},
+            "Text": {"font": "hud", "size": 32, "color": [80, 200, 255, 255]},
+            "BoundText": {"format": "[ {setting.key.action} ]"}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 560, "y": 870},
+            "RectShape": {"width": 380, "height": 70, "color": [20, 30, 70, 230]},
+            "Text": {"font": "hud", "size": 36, "color": [255, 255, 255, 255], "content": "DEFAULTS", "offsetX": 24, "offsetY": 16},
+            "Button": {"action": "settings_reset", "width": 380, "height": 70, "normal": [20, 30, 70, 230], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "hoverSound": "hover", "clickSound": "click"},
+            "Focusable": {"order": 11}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 980, "y": 870},
+            "RectShape": {"width": 380, "height": 70, "color": [20, 30, 70, 230]},
+            "Text": {"font": "hud", "size": 36, "color": [255, 255, 255, 255], "content": "BACK", "offsetX": 24, "offsetY": 16},
+            "Button": {"action": "back", "width": 380, "height": 70, "normal": [20, 30, 70, 230], "hover": [40, 80, 170, 240], "pressed": [80, 200, 255, 255], "hoverSound": "hover", "clickSound": "click"},
+            "Focusable": {"order": 12}
+          }
+        },
+        {
+          "prefab": "ui_element",
+          "components": {
+            "Transform": {"x": 380, "y": 975},
+            "Text": {"font": "hud", "size": 26, "color": [170, 170, 190, 255], "content": "ARROWS OR LEFT / RIGHT TO CHANGE    ENTER TO REBIND A KEY    ESCAPE TO GO BACK"}
+          }
+        }
+      ]
+    },
+    "loading": {
+      "systems": ["Parallax", "SpriteAnimation", "Audio"],
+      "entities": [
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 0, "y": 0},
+            "RectShape": {"width": 1920, "height": 1080, "color": [0, 0, 0, 255]},
+            "Background": {}
+          }
+        },
+        {"prefab": "hud_line", "components": {"SoundCue": {"sound": "introChimes"}}},
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 881, "y": 485},
+            "Text": {"font": "hud", "size": 40, "color": [140, 160, 210, 255], "content": "A GAME BY"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": -649, "y": 470},
+            "RectShape": {"width": 2337, "height": 90, "color": [0, 0, 0, 255]},
+            "Parallax": {"speed": -1600.0, "wrapWidth": 100000},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 800, "y": 575},
+            "Text": {"font": "hud", "size": 56, "color": [235, 245, 255, 255], "content": "Erraji Mohamed"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 740, "y": 589},
+            "Sprite": {"texture": "ui_hud", "frame": [0, 194, 32, 32], "scale": 1},
+            "SpriteAnimation": {
+              "frame": [0, 194, 32, 32],
+              "frameCount": 4,
+              "stepX": 32,
+              "framesPerSecond": 8,
+              "loop": true
+            }
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 1159, "y": 589},
+            "Sprite": {"texture": "ui_hud", "frame": [0, 194, 32, 32], "scale": 1},
+            "SpriteAnimation": {
+              "frame": [0, 194, 32, 32],
+              "frameCount": 4,
+              "stepX": 32,
+              "framesPerSecond": 8,
+              "loop": true
+            }
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": -2400, "y": 560},
+            "RectShape": {"width": 4239, "height": 90, "color": [0, 0, 0, 255]},
+            "Parallax": {"speed": -1600.0, "wrapWidth": 100000},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 813, "y": 665},
+            "Text": {"font": "hud", "size": 56, "color": [235, 245, 255, 255], "content": "Milo Bousquet"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 753, "y": 679},
+            "Sprite": {"texture": "ui_hud", "frame": [0, 194, 32, 32], "scale": 1},
+            "SpriteAnimation": {
+              "frame": [0, 194, 32, 32],
+              "frameCount": 4,
+              "stepX": 32,
+              "framesPerSecond": 8,
+              "loop": true
+            }
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 1147, "y": 679},
+            "Sprite": {"texture": "ui_hud", "frame": [0, 194, 32, 32], "scale": 1},
+            "SpriteAnimation": {
+              "frame": [0, 194, 32, 32],
+              "frameCount": 4,
+              "stepX": 32,
+              "framesPerSecond": 8,
+              "loop": true
+            }
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": -3667, "y": 650},
+            "RectShape": {"width": 5494, "height": 90, "color": [0, 0, 0, 255]},
+            "Parallax": {"speed": -1600.0, "wrapWidth": 100000},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 813, "y": 755},
+            "Text": {"font": "hud", "size": 56, "color": [235, 245, 255, 255], "content": "Nathan Muzay"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 753, "y": 769},
+            "Sprite": {"texture": "ui_hud", "frame": [0, 194, 32, 32], "scale": 1},
+            "SpriteAnimation": {
+              "frame": [0, 194, 32, 32],
+              "frameCount": 4,
+              "stepX": 32,
+              "framesPerSecond": 8,
+              "loop": true
+            }
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 1146, "y": 769},
+            "Sprite": {"texture": "ui_hud", "frame": [0, 194, 32, 32], "scale": 1},
+            "SpriteAnimation": {
+              "frame": [0, 194, 32, 32],
+              "frameCount": 4,
+              "stepX": 32,
+              "framesPerSecond": 8,
+              "loop": true
+            }
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": -4947, "y": 740},
+            "RectShape": {"width": 6773, "height": 90, "color": [0, 0, 0, 255]},
+            "Parallax": {"speed": -1600.0, "wrapWidth": 100000},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 813, "y": 845},
+            "Text": {"font": "hud", "size": 56, "color": [235, 245, 255, 255], "content": "Erwan Ababsa"}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 753, "y": 859},
+            "Sprite": {"texture": "ui_hud", "frame": [0, 194, 32, 32], "scale": 1},
+            "SpriteAnimation": {
+              "frame": [0, 194, 32, 32],
+              "frameCount": 4,
+              "stepX": 32,
+              "framesPerSecond": 8,
+              "loop": true
+            }
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 1146, "y": 859},
+            "Sprite": {"texture": "ui_hud", "frame": [0, 194, 32, 32], "scale": 1},
+            "SpriteAnimation": {
+              "frame": [0, 194, 32, 32],
+              "frameCount": 4,
+              "stepX": 32,
+              "framesPerSecond": 8,
+              "loop": true
+            }
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": -6227, "y": 830},
+            "RectShape": {"width": 8053, "height": 90, "color": [0, 0, 0, 255]},
+            "Parallax": {"speed": -1600.0, "wrapWidth": 100000},
+            "Foreground": {}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": 522, "y": 120},
+            "Sprite": {"texture": "ui_logo", "frame": [0, 0, 701, 225], "scale": 1.25}
+          }
+        },
+        {
+          "prefab": "hud_line",
+          "components": {
+            "Transform": {"x": -8048, "y": 90},
+            "RectShape": {"width": 10096, "height": 370, "color": [0, 0, 0, 255]},
+            "Parallax": {"speed": -1600.0, "wrapWidth": 100000},
+            "Foreground": {}
+          }
+        }
+      ]
+    }
+  },
+  "uiMessages": {
+    "online": "ONLINE",
+    "connecting": "CONNECTING...",
+    "connectionFailed": "SERVER UNREACHABLE OR CONNECTION LOST",
+    "invalidAddress": "INVALID SERVER ADDRESS",
+    "roomLost": "THE ROOM STOPPED ANSWERING",
+    "kicked": "YOU WERE KICKED FROM THE ROOM",
+    "roomClosed": "THE ROOM WAS CLOSED",
+    "roomNotFound": "THIS ROOM DOES NOT EXIST ANYMORE",
+    "roomFull": "THIS ROOM IS FULL",
+    "wrongCode": "WRONG CODE",
+    "tooManyRooms": "THE SERVER HAS TOO MANY ROOMS",
+    "invalidRoomName": "ENTER A ROOM NAME",
+    "tooManyAttempts": "TOO MANY WRONG CODES",
+    "notAllowed": "ONLY THE ROOM OWNER CAN DO THAT",
+    "locked": "[LOCKED]",
+    "playing": "IN GAME",
+    "waiting": "WAITING",
+    "noRooms": "NO ROOM YET, CREATE ONE",
+    "ownerTag": "  [OWNER]",
+    "youTag": "  (YOU)",
+    "emptySlot": "- FREE -",
+    "playerLeft": "P{slot} LEFT THE GAME",
+    "playerLost": "P{slot} LOST THE CONNECTION"
+  },
+  "renderSystems": [{"system": "Render", "background": [5, 5, 20, 255]}]
+}

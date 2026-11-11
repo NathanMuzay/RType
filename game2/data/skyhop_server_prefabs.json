@@ -1,0 +1,137 @@
+{
+  "match": {
+    "Match": {
+      "restartDelay": 1.0
+    }
+  },
+  "player": {
+    "Lives": {
+      "count": 1
+    },
+    "Score": {},
+    "Respawn": {
+      "prefab": "plane",
+      "delay": 0.0,
+      "invulnerability": 0.0,
+      "x": 420,
+      "y": 420,
+      "spacingY": 0
+    }
+  },
+  "director": {
+    "Script": {
+      "file": "director.py"
+    }
+  },
+  "plane": {
+    "Transform": {},
+    "Velocity": {},
+    "Collider": {
+      "width": 92,
+      "height": 70,
+      "layer": "player",
+      "hits": [
+        "gate"
+      ]
+    },
+    "PlayerControl": {
+      "speed": 0
+    },
+    "ContactDamage": {
+      "amount": 1,
+      "destroyOnHit": false
+    },
+    "Replicated": {
+      "kind": 1
+    },
+    "Script": {
+      "file": "plane.py"
+    }
+  },
+  "rock": {
+    "Transform": {},
+    "Velocity": {
+      "x": -380,
+      "y": 0
+    },
+    "DespawnOffscreen": {
+      "minX": -400,
+      "minY": -1200,
+      "maxX": 2600,
+      "maxY": 2200
+    },
+    "Replicated": {
+      "kind": 2
+    }
+  },
+  "rock_down": {
+    "Transform": {},
+    "Velocity": {
+      "x": -380,
+      "y": 0
+    },
+    "DespawnOffscreen": {
+      "minX": -400,
+      "minY": -1200,
+      "maxX": 2600,
+      "maxY": 2200
+    },
+    "Replicated": {
+      "kind": 3
+    }
+  },
+  "hitbox": {
+    "Transform": {},
+    "Velocity": {
+      "x": -380,
+      "y": 0
+    },
+    "DespawnOffscreen": {
+      "minX": -400,
+      "minY": -1200,
+      "maxX": 2600,
+      "maxY": 2200
+    },
+    "Collider": {
+      "width": 90,
+      "height": 621.4,
+      "layer": "obstacle",
+      "hits": [
+        "player"
+      ]
+    },
+    "Script": {
+      "file": "hitbox.py",
+      "params": {
+        "deadly": 1
+      }
+    }
+  },
+  "gate": {
+    "Transform": {},
+    "Velocity": {
+      "x": -380,
+      "y": 0
+    },
+    "DespawnOffscreen": {
+      "minX": -400,
+      "minY": -1200,
+      "maxX": 2600,
+      "maxY": 2200
+    },
+    "Collider": {
+      "width": 16,
+      "height": 1080,
+      "layer": "gate"
+    },
+    "Health": {
+      "points": 1
+    },
+    "ScoreValue": {
+      "points": 1
+    },
+    "Script": {
+      "file": "gate.py"
+    }
+  }
+}
